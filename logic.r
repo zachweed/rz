@@ -1,3 +1,14 @@
+# Given a two outcomes of of an event,
+# And an outcome of a combination of those events
+# Then return complement without double-counted combination.
+# @param List[Numeric] supposition
+# @return Complement of both events without double counting.
+# @begin complement_of
+complement_of <- function(supposition, combination) {
+  (supposition(1) + supposition(2)) - combination
+}
+# @end complement_of
+
 # @param Vector values a vector of values to find a range from.
 # @return Numeric
 # @begin range
