@@ -1,4 +1,8 @@
-# Represented by X~B(n,p) where X is a binomial Distribution.
+#####################################
+# 0. Binomial Distribution.          #
+# 1. Application thereof.           #
+# 3. Distribution between values.   #
+#####################################
 
 # @param Numeric number_of_trials in a binomial random variable
 # @return mean of a random variable.
@@ -62,19 +66,17 @@ what_is_p_of_x_when_lte <- function(n = 0, lte = 0, p = 0) { pbinom(lte, size = 
 what_is_p_of_x_when_lte(n = 17, lte = 7, p = 0.4)
 
 # Find the probability of a random variable X having an outcome between A and B times.
-# @param n Vector of Probabilities
-# @param trials # of trials
-# @param p probability of success
+# @param from At least how many successes
+# @param to At most how many successes
+# @param trials How many trials total?
+# @param p How probable is success?
 # @return binomial distribution of something happening at least x times.
 # @begin what_is_ranged_probability
-what_is_ranged_probability <- function(from = 0, to = 0, trials = 0, p = 0) { 
-  # from - 1 because inclusive.
-  result = pbinom(to, size = trials, prob = p) - pbinom((from - 1), size = trials, prob = p)
-  print("make sure to round")
-  print(result)
+what_is_ranged_probability <- function(from = 0, to = 0, trials = 0, p = 0) {
+  print(pbinom(to, size = trials, prob = p) - pbinom((from - 1), size = trials, prob = p))
 } 
 # @end what_is_ranged_probability
-what_is_ranged_probability(from = 11, to = 20, trials = 35, p = 0.295)
+what_is_ranged_probability(from = 11, to = 20, trials = 44, p = 0.315)
 
 
 ###################################
