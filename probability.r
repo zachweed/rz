@@ -151,7 +151,7 @@ what_is_probability_of_two_independent_events(0.273, 0.403, 0.176)
 what_is_probability_that_this_and_not_that <- function(a_what=0, both=0) {
   a_what - both
 }
-what_is_probability_that_this_and_not_that(a_what=0.6, both=0.4)
+what_is_probability_that_this_and_not_that(a_what=0.7, both=0.2)
 # @end what_is_probability_that_this_and_not_that
 
 # @return Probability of Neither.
@@ -161,6 +161,14 @@ what_is_probability_that_neither <- function(a=0, b=0, both=0) {
 }
 what_is_probability_that_neither(a=0.6, b=0.5, both=0.4)
 # @end what_is_probability_that_neither
+
+# @return Probability of Either.
+# @begin what_is_probability_that_either
+what_is_probability_that_either <- function(a=0, b=0, both=0) {
+  (a + (b) - both) 
+}
+what_is_probability_that_either(a=0.6, b=0.5, both=0.4)
+# @end what_is_probability_that_either
 
 # Conditional Probability Formula.
 # GIVEN THAT.
