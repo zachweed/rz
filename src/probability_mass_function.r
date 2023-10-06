@@ -37,6 +37,20 @@ what_is_expected_value_of_pmf(
   )
 )
 
+# @param all probabilities
+# @return If probability mass function
+# @begin true_probability_mass_function?
+true_probability_mass_function <- function(all_probabilities) {
+  counter = 1
+  sum = 0
+  for(probability in all_probabilities) {
+    sum = sum + (counter/probability)
+    counter = counter + 1
+  }
+  all.equal(sum, 1)
+}
+# @end true_probability_mass_function
+
 # @param list_of_probabilities List[Vector[Int, Int]]
 # @return Positive Int; doesn't have to be between 0 and 1.
 # @OKs: V
