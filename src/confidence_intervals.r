@@ -22,3 +22,20 @@ derive_population_mean <- function(sample_mean=0, margin_of_error=0, confidence_
 }
 # @end derive_population_mean
 derive_population_mean(sample=15, margin_of_error=3.2)
+
+# @begin find_z_score_where_x_lte
+find_z_score_where_x_lte <- function(confidence_level=0, x_lte=0) {
+  confidence = 1-confidence_level
+  qnorm(1 - confidence / 2)
+}
+# @end find_z_score_where_x_lte
+find_z_score_where_x_lte(0.95) 
+
+# @begin find_confidence_interval
+find_confidence_interval <- function(confidence_level=0, sample_mean=0, sample_size=0, standard_deviation=0) {
+  lower = qnorm((1-confidence_level) / 2, sample_mean, standard_deviation/sqrt(sample_size))
+  upper = qnorm(confidence_level / 2, sample_mean, standard_deviation/sqrt(sample_size))
+  list(lower, upper)
+}
+# @end find_confidence_interval
+find_margin_of_error(confidence_level=0.95, sample_mean=10, sample_size=100, standard_deviation=3)
