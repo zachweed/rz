@@ -84,3 +84,10 @@ find_confidence_interval <- function(confidence_level=0, standard_deviation=0, s
 }
 # @end find_confidence_interval_without_mean
 find_confidence_interval(confidence_level=0.95, standard_deviation=3, sample_size=36, xbar=68)
+
+# @begin find_margin_of_error_from_confidence_interval
+find_margin_of_error_from_confidence_interval <- function(confidence_interval=list(), xbar=0) {
+  as.numeric(confidence_interval[2]) - as.numeric(xbar)
+}
+# @end find_margin_of_error_from_confidence_interval
+find_margin_of_error_from_confidence_interval(confidence_interval = list(67.508, 68.492), xbar=68)
