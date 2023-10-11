@@ -97,3 +97,11 @@ find_margin_of_error_from_confidence_interval <- function(confidence_interval=li
 }
 # @end find_margin_of_error_from_confidence_interval
 find_margin_of_error_from_confidence_interval(confidence_interval = list(67.508, 68.492), xbar=68)
+
+# @begin find_sample_mean_from_confidence_interval
+find_sample_mean_from_confidence_interval <- function(confidence_interval=list()) {
+  (as.numeric(confidence_interval[2]) + as.numeric(confidence_interval[1])) / 2
+}
+# @end find_sample_mean_from_confidence_interval
+find_sample_mean_from_confidence_interval(confidence_interval = list(42.12, 47.88))
+
