@@ -105,3 +105,15 @@ find_sample_mean_from_confidence_interval <- function(confidence_interval=list()
 # @end find_sample_mean_from_confidence_interval
 find_sample_mean_from_confidence_interval(confidence_interval = list(42.12, 47.88))
 
+# @begin moe
+moe <- function(z_value, alpha, standard_deviation) {
+  (qnorm(zvalue) * standard_deviation/sqrt(sample_size))
+}
+# @end moe
+
+# @begin optimal_sample_size
+optimal_sample_size <- function(z_value, standard_deviation, moe) {
+  ceiling(((qnorm(z_value) ^ 2) * (standard_deviation ^ 2)) / (moe ^ 2))
+}
+# @end optimal_sample_size
+optimal_sample_size(0.025, 15, 2)
