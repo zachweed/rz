@@ -40,19 +40,21 @@ find_confidence_interval <- function(confidence_level=0, sample_mean=0, sample_s
 # @end find_confidence_interval
 find_margin_of_error(confidence_level=0.95, sample_mean=10, sample_size=100, standard_deviation=3)
 
-# @begin find_margin_of_error_for_lookup
-find_margin_of_error_for_lookup <- function(confidence_level=0, standard_deviation=0, sample_size=0) {
+# @begin find_confidence_interval_without_mean
+find_confidence_interval <- function(confidence_level=0, standard_deviation=0, sample_size=0) {
   alpha = 1 - confidence_level
   alpha_left_tail  = alpha/2
   alpha_right_tail = alpha_left_tail
   alpha_mid = 1 - alpha_right_tail
-  alphas = c(
+  data = c(
     alpha = alpha,
     alpha_left_tail = alpha_left_tail,
+    margin_of_error_left = qnorm(alpha_left_tail) * standard_deviation/sqrt(sample_size),
     alpha_mid = alpha_mid,
-    alpha_right_tail = alpha_right_tail
+    alpha_right_tail = alpha_right_tail,
+    margin_of_error_right = -(qnorm(alpha_right_tail) * standard_deviation/sqrt(sample_size))
   )
-  print(alphas)
+  print(data)
 }
-# @end find_margin_of_error_for_lookup
-find_margin_of_error_for_lookup(confidence_level=0.90, standard_deviation=0.2, sample_size=20)
+# @end find_confidence_interval_without_mean
+find_confidence_interval(confidence_level=0.90, standard_deviation=0.2, sample_size=20)
