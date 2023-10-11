@@ -58,3 +58,29 @@ find_confidence_interval <- function(confidence_level=0, standard_deviation=0, s
 }
 # @end find_confidence_interval_without_mean
 find_confidence_interval(confidence_level=0.90, standard_deviation=0.2, sample_size=20)
+
+# @begin find_confidence_interval_without_mean
+find_confidence_interval <- function(confidence_level=0, standard_deviation=0, sample_size=0, xbar = 0) {
+  alpha = 1 - confidence_level
+  left_tail  = alpha/2
+  right_tail = left_tail
+  mid = 1 - right_tail
+  critical_value = round(qnorm(left_tail), 2)
+  margin_of_error_left = critical_value * standard_deviation/sqrt(sample_size)
+  margin_of_error_right = -critical_value * standard_deviation/sqrt(sample_size)
+  data = c(
+    alpha = alpha,
+    critical_value = critical_value,
+    left_tail = left_tail,
+    margin_of_error_left = margin_of_error_left,
+    lower = xbar + margin_of_error_left,
+    mid = mid,
+    right_tail = right_tail,
+    margin_of_error_right = margin_of_error_left,
+    upper = xbar + margin_of_error_right
+  )
+
+  print(data)
+}
+# @end find_confidence_interval_without_mean
+find_confidence_interval(confidence_level=0.95, standard_deviation=3, sample_size=36, xbar=68)
