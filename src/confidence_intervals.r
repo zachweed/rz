@@ -111,6 +111,12 @@ moe <- function(z_value, alpha, standard_deviation) {
 }
 # @end moe
 
+# @begin z_value
+z_value <- function(confidence_level=0){
+ (1-confidence_level)/2 
+}
+# @end z_value
+
 # @begin optimal_sample_size
 optimal_sample_size <- function(z_value, standard_deviation, moe) {
   ceiling(((qnorm(z_value) ^ 2) * (standard_deviation ^ 2)) / (moe ^ 2))
