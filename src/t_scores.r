@@ -3,28 +3,75 @@ library(methods)
 # @begin TScore
 t_score <- setRefClass("TScore",
                        fields=list(
-                         x_bar="numeric",
-                         standard_deviations="numeric",
+                         sample_mean="numeric",
+                         standard_deviation="numeric",
                          sample_size="numeric",
                          mu="numeric",
                          score="numeric",
-                         degrees_of_freedom="numeric"
+                         degrees_of_freedom="numeric",
+                         confidence_level="numeric",
+                         alpha="numeric",
+                         t_critical_value="numeric",
+                         t_actual_value="numeric",
+                         margin_of_error="numeric",
+                         sample="list"
                        ),
                        methods=list(
                          init_df = function(){
-                           degrees_of_freedom <<- standard_deviations - 1
+                           sample_size <- length(sample)
+                           degrees_of_freedom <<- sample_size - 1
+                         },
+                         init_sample_size = function(){
+                           sample_size <<- length(sample)
+                         },
+                         init_sample_mean = function(){
+                           sample_mean <<- mean(unlist(sample))
                          },
                          init_score = function(){
-                           score <<- (x_bar - mu)/(standard_deviations/sqrt(sample_size))
+                           score <<- (sample_mean - mu)/(standard_deviation/sqrt(sample_size))
+                         },
+                         init_alpha = function() {
+                           alpha <<- 1 - confidence_level
+                         },
+                         init_t_critical_value = function() {
+                           init_sample_size()
+                           init_alpha()
+                           t_critical_value <<- alpha/2
+                         },
+                         init_t_actual_value = function() {
+                           init_df()
+                           init_t_critical_value()
+                           t_actual_value <<- -qt(t_critical_value, degrees_of_freedom)
+                         },
+                         init_standard_deviation = function() {
+                           standard_deviation <<- sd(unlist(sample))
+                         },
+                         init_margin_of_error = function() {
+                           init_standard_deviation()
+                           init_sample_mean()
+                           init_t_actual_value()
+                           init_standard_deviation()
+                           margin_of_error <<- (t_actual_value * (standard_deviation/sqrt(sample_size)))
                          },
                          x_lt_t = function() {
-                           print(pt(score, degrees_of_freedom()))
+                           print(pt(score, degrees_of_freedom))
                          },
                          x_gt_t = function() {
-                           print(1 - pt(score, degrees_of_freedom()))
+                           print(1 - pt(score, degrees_of_freedom))
                          },
                          x_lteq_t = function() {
-                           print(qt(score, degrees_of_freedom()))
+                           print(qt(score, degrees_of_freedom))
+                         },
+                         find_confidence_interval = function() {
+                           init_margin_of_error()
+                           print("true population mean is:")
+                           print(list(sample_mean - margin_of_error, sample_mean + margin_of_error))
+                         },
+                         find_t_value_for_confidence_interval_with_sample_size_and_mean = function(confidence_interval=0, sample_size=0, sample_mean=0, standard_deviation) {
+                           t_critical_value <- qt(confidence_interval, sample_size - 1)
+                           margin_of_error_lower <- sample_mean - t_critical_value * (standard_deviation/sqrt(sample_size))
+                           margin_of_error_upper <- sample_mean + t_critical_value * (standard_deviation/sqrt(sample_size))
+                           list(margin_of_error_lower, margin_of_error_upper)
                          }
                        )
 )
@@ -34,10 +81,10 @@ t_score <- setRefClass("TScore",
 #       Tests           #
 #########################
 
-t <- t_score(x_bar=4, standard_deviations=2, sample_size=4, mu=2)
+t <- t_score(sample_mean=4, standard_deviations=2, sample_size=4, mu=2)
 
 # Given 40 Degrees of Freedom, Calculate P(x<T)
-t <- t_score(x_bar=4, standard_deviations=2, sample_size=4, mu=2)
+t <- t_score(sample_mean=4, standard_deviations=2, sample_size=4, mu=2)
 t$init_df()
 all.equal(t$degrees_of_freedom, 2)
 
