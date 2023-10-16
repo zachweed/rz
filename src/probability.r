@@ -182,6 +182,20 @@ what_is_probability_given_that <- function(probability_of_both, probability_of_w
 # @end what_is_probability_given_that
 what_is_probability_given_that(0.02, 0.05)
 
+# Essentially, if given a Maximum Bound earlier in problem,
+#   then subtract sub-maximum for different maximum.
+#   and subtract minimum from different maximum
+#   and divide 1 by the number as A.
+#   then subtract sub_problem_maximum from true_maximum as B
+#   and multiply A and B.
+# (e.g., (P(x > 12| x > 8)), (0, 23))
+what_is_probability_between_two_integers <- function(true_maximum, sub_problem_maximum, true_minimum) {
+  a <- 1/(true_maximum-true_minimum)
+  b <- true_maximum - sub_problem_maximum
+  a * b
+}
+what_is_probability_between_two_integers(12.5, 12.5, 1)
+
 
 ###################################
 #            Tests                #
@@ -201,3 +215,9 @@ test_what_is_probability_of_n_given_z <- function() {
   all.equal(what_is_probability_given_that(0.17, 0.3), 0.567)
 }
 test_what_is_probability_of_n_given_z()
+
+test_what_is_probability_between_two_integers <- function() {
+  all.equal(what_is_probability_between_two_integers(23, 12, 8), 0.73333333)
+}
+test_what_is_probability_between_two_integers()
+

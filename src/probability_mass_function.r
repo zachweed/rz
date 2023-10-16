@@ -26,14 +26,17 @@ what_is_expected_value_of_pmf <- function(list_of_probabilities = list_of_probab
 what_is_expected_value_of_pmf(
   list_of_probabilities = list(
     c(
-      (0.4), 1
+      (0.1), 1
     ),
     c(
-      (0.3), 10
+      (0.1), 2
     ),
     c(
-      (0.3), 100
-    )
+      (0.7), 3
+    ),
+    c(
+      (0.1), 4
+    ),
   )
 )
 

@@ -4,7 +4,8 @@ library(methods)
 uniform_distribution <- setRefClass("UniformDistribution",
                                       fields=list(
                                         a="numeric",
-                                        b="numeric"
+                                        b="numeric",
+                                        sample="list"
                                       ),
                                       methods=list(
                                         # E[X], expected value

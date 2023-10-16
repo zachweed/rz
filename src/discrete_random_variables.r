@@ -6,9 +6,9 @@ roll <- function(win_probability = 0, win_amount = 0, lose_probability = 0, lose
   )
 }
 roll(
-  win_probability = 0.06, 
-  win_amount = 90, 
-  lose_probability = 0.94, 
-  lose_amount = -20
+  win_probability = 0.41,
+  win_amount = 1,
+  lose_probability = 0.49,
+  lose_amount = -1
 )
 # @end roll
