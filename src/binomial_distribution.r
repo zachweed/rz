@@ -39,11 +39,16 @@ derive_mean_and_or_expected_value_from_X(30, 0.1)
 # @param Numeric probability probability of outcome
 # @return binomial distribution of something happening at least x times.
 # @begin what_is_probability_of_success
-what_is_probability_of_success <- function(between_first_number, between_second_number, number_of_samples, probability) {
+what_is_probability_of_success <- function(between_first_number=0, between_second_number=0, number_of_samples=0, probability=0) {
   pbinom(between_second_number, number_of_samples, probability) - pbinom((between_first_number - 1), number_of_samples, probability)
 }
 # @end what_is_probability_of_success
-what_is_probability_of_success(11, 20, 43, 0.315)
+what_is_probability_of_success(
+  between_first_number=0,
+  between_second_number=20, 
+  number_of_samples=43, 
+  probability=0.315
+)
 
 # Find exact probability of a random variable X in binomial distribution.
 # @param n Vector of Probabilities
@@ -53,7 +58,7 @@ what_is_probability_of_success(11, 20, 43, 0.315)
 # @begin what_is_p_of_x
 what_is_p_of_x_when_equals <- function(n = 0, eq = 0, p = 0) { dbinom(eq, size = n, prob = p) }
 # @end what_is_p_of_x
-what_is_p_of_x_when_equals(n = 20, eq = 3, p = 0.2)
+what_is_p_of_x_when_equals(n = 15, eq = 7, p = 0.6)
 
 # Find the probability of a random variable X being equal to an exact value.
 # @param n Vector of Probabilities

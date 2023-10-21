@@ -1,54 +1,30 @@
 library(methods)
  
-# @begin UniformDistribution
-uniform_distribution <- setRefClass("UniformDistribution",
-                                      fields=list(
-                                        a="numeric",
-                                        b="numeric",
-                                        sample="list"
-                                      ),
-                                      methods=list(
-                                        # E[X], expected value
-                                        EX = function(){
-                                          ((a+b)/2)
-                                        },
-                                        # Variance
-                                        VX = function(){
-                                          ((b-a)^2)/12
-                                        },
-                                        # SD[X]
-                                        SD = function(){
-                                          (
-                                            sqrt(
-                                              ((b-a)^2)/12
-                                            )
-                                          )
-                                        }
-                                      )
- )
-# @end Uniform Distribution
+# Equally Likely Outcomes
+
+EX = function(a=0, b=0){((a+b)/2)}
+VX = function(a=0, b=0){((b-a)^2)/12}
+p_between = function(a=0, b=0, c=3){
+  c/b
+}
+SD = function(a=0, b=0){
+  sqrt(
+    ((b-a)^2)/12
+  )
+}
+
  
 #########################
 #       Tests           #
 #########################
 # Test E[X].
-udist <- uniform_distribution(
-  a=2,
-  b=2
-)
-all.equal(udist$EX(), 2)
+all.equal(EX(a=2, b=2), 2)
 
 # Test Var[X]
-udist <- uniform_distribution(
-  a=4,
-  b=2
-)
-all.equal(udist$VX(), 0.33333333)
+all.equal(VX(a=4, b=2), 0.33333333)
 
 # Test SD[X]
-udist <- uniform_distribution(
-  a=6,
-  b=2
-)
-udist$SD()
-all.equal(udist$SD(), 1.154701)
+all.equal(SD(a=6, b=2), 1.154701)
+
+# Test p_between
+all.equal(p_between(a=0, b=15, c=3), (3/15))

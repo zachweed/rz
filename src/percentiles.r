@@ -1,3 +1,13 @@
+# @begin percentile_from_z_score
+# If Z_score isn't provided, find closest value
+# to percentile in z-table and convert.
+percentile_from_z_score <- function(mean=0, standard_deviation=0, z_score=0) {
+  # i.e. mu, + z_score * sd
+  (mean + ((z_score) * standard_deviation))
+}
+percentile_from_z_score(mean=45000, standard_deviation=10000, z_score=1.28)
+# @end percentile_from_z_score
+
 # @return What is Nth percentile of a list?
 # @param Vector a list of values 
 # @begin percentiles

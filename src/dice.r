@@ -7,7 +7,7 @@ how_many_combinations <- function(dice_number) {
 
 # @begin likelihood_of_sum
 # @param Numeric number of dice
-likelihood_of_sum <- function(target_sum, dice_number, number_of_rolls) {
+likelihood_of_sum <- function(target_sum=0, dice_number=0, number_of_rolls=0) {
   modifier = 0
   if(target_sum == 4) {
     modifier = 3
@@ -18,4 +18,4 @@ likelihood_of_sum <- function(target_sum, dice_number, number_of_rolls) {
   pbinom(1, number_of_rolls, modifier / how_many_combinations(dice_number))
 }
 # @end how_many_combinations
-likelihood_of_sum(11, 2, 5)
+likelihood_of_sum(target_sum=11, dice_number=2, number_of_rolls=5)

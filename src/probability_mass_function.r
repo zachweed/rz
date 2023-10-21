@@ -36,7 +36,7 @@ what_is_expected_value_of_pmf(
     ),
     c(
       (0.1), 4
-    ),
+    )
   )
 )
 
@@ -84,13 +84,16 @@ what_is_sdev_of_probability_distribution <- function(list_of_probabilities) {
 what_is_sdev_of_probability_distribution(
   list(
     c(
-      0.2, -10000
+      0.7, 1
     ),
     c(
-      0.6, 10000
+      0.1, 2
     ),
     c(
-      0.2, 100000
+      0.1, 3
+    ),
+    c(
+      0.1, 4
     )
   )
 )

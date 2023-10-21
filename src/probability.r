@@ -1,3 +1,13 @@
+# Probability of Random Variable between from and two
+# If variation then convert to standard deviation.
+# @begin probability_of_rando_between
+probability_of_rando_between <- function(mean=0, standard_deviation=1, from=0, to=0) {
+  pnorm(to, mean=mean, sd=standard_deviation) - 
+  pnorm(from, mean=mean, sd=standard_deviation)
+}
+# @end probability_of_rando_between
+probability_of_rando_between(mean=102,standard_deviation=9,from=102, to=111)
+
 # Essentially this solves a probability for a flipped known.
 # @begin solve_decision_tree
 solve_decision_tree <- function(probability_a, probability_b, probability_c) {
@@ -5,7 +15,6 @@ solve_decision_tree <- function(probability_a, probability_b, probability_c) {
 }
 # @end solve_decision_tree
 solve_decision_tree(0.05, 0.7, 0.1)
-
 
 # Independence Rule
 # If there are different events make sure right one is flipped.
@@ -102,7 +111,6 @@ what_is_probability_of_two_mutually_exclusive_events_combined(0.1, 0.1)
 what_is_probability_of_two_events_given_relation <- function(probability_of_both = 0, given_that = 0) {
   outcome = probability_of_both / given_that
   print(outcome)
-  print(fractions(outcome))
 }
 what_is_probability_of_two_events_given_relation(
   probability_of_both = 0.03,
@@ -121,7 +129,6 @@ what_is_probability_of_two_events_given_relation(
 what_is_probability_of_two_dependent_events <- function(A, B) {
   outcome = A * B
   print(outcome)
-  print(fractions(outcome))
 }
 what_is_probability_of_two_dependent_events(0.08, 0.37)
 # @end what_is_probability_of_two_events
@@ -221,3 +228,10 @@ test_what_is_probability_between_two_integers <- function() {
 }
 test_what_is_probability_between_two_integers()
 
+test_what_is_probability_of_rando <- function() {
+  all.equal(
+    probability_of_rando_between(mean=102,standard_deviation=9,from=102, to=111),
+    0.3413447
+  )
+}
+test_what_is_probability_of_rando()
