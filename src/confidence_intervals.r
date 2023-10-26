@@ -201,11 +201,12 @@ find_confidence_interval <- function(confidence_level=0, sample_mean=0, sample_s
   upper = qnorm(confidence_level / 2, sample_mean, standard_deviation/sqrt(sample_size))
   list(lower, upper)
 }
-find_confidence_interval(confidence_level=0.99, sample_mean=11.81, sample_size=52, standard_deviation=3.17)
+find_confidence_interval(confidence_level=0.90, sample_mean=226, sample_size=9, standard_deviation=11.06797)
 # @end find_confidence_interval
 find_margin_of_error(confidence_level=0.95, sample_mean=10, sample_size=100, standard_deviation=3)
 
 # @begin find_confidence_interval_without_mean
+# This one works in Problem Sets.
 find_confidence_interval <- function(confidence_level=0, standard_deviation=0, sample_size=0) {
   alpha = 1 - confidence_level
   alpha_left_tail  = alpha/2
@@ -222,7 +223,7 @@ find_confidence_interval <- function(confidence_level=0, standard_deviation=0, s
   print(data)
 }
 # @end find_confidence_interval_without_mean
-find_confidence_interval(confidence_level=0.90, standard_deviation=0.2, sample_size=200)
+find_confidence_interval(confidence_level=0.80, standard_deviation=2.6, sample_size=13)
 
 # @begin find_confidence_interval_without_mean
 find_confidence_interval <- function(confidence_level=0, standard_deviation=0, sample_size=0, xbar = 0) {

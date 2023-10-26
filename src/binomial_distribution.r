@@ -11,7 +11,7 @@ derive_mean_and_or_expected_value_from_X <- function(number_of_trials, probabili
   number_of_trials * probability_of_success
 }
 # @end derive_mean_and_or_expected_value_from_X
-derive_mean_and_or_expected_value_from_X(30, 0.1)
+derive_mean_and_or_expected_value_from_X(252, (1/6))
 
 # @param Numeric number_of_trials in a binomial random variable
 # @return mean of a random variable.
@@ -23,10 +23,11 @@ find_standard_deviation_of_a_binomial_random_variable <- function(number_of_tria
   } else {
     ret = number_of_trials * probability_of_success * probability_of_failure
   }
-  
+  ret
 }
 # @end derive_mean_and_or_expected_value_from_X
 derive_mean_and_or_expected_value_from_X(30, 0.1)
+find_standard_deviation_of_a_binomial_random_variable(252, (1/6), (5/6), 6)
 
 # Given a test of probability of an event occurring within an interval,
 # And the probability of an outcome one time is known
