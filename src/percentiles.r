@@ -4,22 +4,26 @@
 #   3. Find probability of sample age being above ____.
 #   4. Find nth percentile.
 
+percentileForSampleMean <- function(k=0.0, mu=0.0, standard_deviation=0.0, sample_size=0.0) {qnorm(k, mu, standard_deviation/sqrt(sample_size))}
+percentileForSampleMean(k=0.95, mu=34, standard_deviation=15, sample_size=100)
+percentileForSampleMean(k=0.30, mu=3, standard_deviation=2, sample_size=40)
+
 # validate in https://www.desmos.com/calculator/rephn2eswe
-pOfXGreaterThan <- function(mu=0.0, standard_deviation=0.0, greaterThanWhat=0.0){
-  # key is lower.tail
-  pnorm(greaterThanWhat, mu, standard_deviation, lower.tail=FALSE)
-}
-pOfXGreaterThan(mu=34, standard_deviation=1.5, greaterThanWhat=30)
+pOfXLessThan <- function(mu=0.0, standard_deviation=0.0, greaterThanWhat=0.0, sample_size=0.0){pnorm(greaterThanWhat, mu, standard_deviation/sqrt(sample_size))}
+pOfXLessThan(mu=34, standard_deviation=15, greaterThanWhat=30, sample_size=100)
+
+# validate in https://www.desmos.com/calculator/rephn2eswe
+pOfXGreaterThan <- function(mu=0.0, standard_deviation=0.0, greaterThanWhat=0.0, sample_size=0.0){ 1 - pnorm(greaterThanWhat, mu, standard_deviation/sqrt(sample_size))}
+pOfXGreaterThan(mu=34, standard_deviation=15, greaterThanWhat=30, sample_size=100)
 
 # Can be used to plug into qnorm for percentiles
-mean <- function(upper_bound=0, lower_bound=0, sample_size=0) {
-  sample_size * ((upper_bound+lower_bound)/2)
-}
+mean <- function(upper_bound=0, lower_bound=0, sample_size=0) {sample_size * ((upper_bound+lower_bound)/2)}
 
 # σχ
 sample_standard_deviation <- function(standard_deviation = 0.0, sample_size = 0.0) {
   standard_deviation/sqrt(sample_size)
 }
+sample_standard_deviation(standard_deviation=15, sample_size=100)
 sample_standard_deviation(standard_deviation=15, sample_size=100)
 
 # Can be used to plug into qnorm for percentiles
