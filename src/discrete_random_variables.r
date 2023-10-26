@@ -1,4 +1,4 @@
-# @return expected value of a roll return.
+# @return expected value of a roll return
 # @begin roll
 roll <- function(win_probability = 0, win_amount = 0, lose_probability = 0, lose_amount = 0) {
   (  (win_probability * win_amount) 

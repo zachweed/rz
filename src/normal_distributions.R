@@ -1,5 +1,13 @@
 # Normal distributions
 
+# It's okay mean isn't used.
+# @begin standard_error_of_mean
+standard_error_of_mean <- function(mean=0, standard_deviation=0, n=0) {
+  standard_deviation/sqrt(n)
+}
+standard_error_of_mean(mean=5, standard_deviation=10, n=40)
+# @end standard_error_of_mean
+
 # How many Standard Deviations to the Left/Right.
 # (Z = (x - mu)/sigma)
 # @begin standard_deviation

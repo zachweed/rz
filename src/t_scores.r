@@ -121,7 +121,7 @@ all.equal(t$degrees_of_freedom, 1.316345)
 
 # Given A list of babies with chemicals, find mean range for given confidence interval
 t <- t_score(
-  sample=list(90, 145, 147, 160, 116, 100, 159, 151, 156, 126, 137, 83, 156, 94, 121, 144, 123, 114, 139, 99), 
+  sample=list(90, 145, 147, 160, 116, 100, 159, 151, 156, 126, 137, 83, 156, 94, 121, 144, 123, 114, 139, 99),
   confidence_level=0.90
 )
 t$find_confidence_interval()

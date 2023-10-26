@@ -1,3 +1,13 @@
+probability_of_something_between <- function(mean=0.0, sample_size=0.0, standard_deviation=0.0){
+  mean * sample_si
+}
+
+# Things like "suppose you can win between 1 and 5 for doing something"
+# What is probability X is 3?
+# Then X=3/5
+# i.e. intuitive.
+
+
 # Probability of Random Variable between from and two
 # If variation then convert to standard deviation.
 # @begin probability_of_rando_between
@@ -6,8 +16,8 @@ probability_of_rando_between <- function(mean=0, standard_deviation=1, from=0, t
   pnorm(from, mean=mean, sd=standard_deviation)
 }
 # @end probability_of_rando_between
-probability_of_rando_between(mean=102,standard_deviation=9,from=102, to=111)
-
+# probability_of_rando_between(mean=35,standard_deviation=0.1,from=102, to=111)
+probability_of_rando_between(mean=150,standard_deviation=36,from=7450, to=7850)
 # Essentially this solves a probability for a flipped known.
 # @begin solve_decision_tree
 solve_decision_tree <- function(probability_a, probability_b, probability_c) {
