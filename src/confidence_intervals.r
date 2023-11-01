@@ -1,134 +1,45 @@
 library("ggplot2")
 
-# If population mean is not known and population standard deviation is and sample size is,
-#   then (population standard deviation)/square root (sample size) equals #Standard Deviation of Sample Mean
-#   and Sample Mean +- 2 Standard Deviations equals #Population Mean
+# Given a mean of 12 fl. oz. & SD of 0.1oz,
+# Then what is the probability of 35 randomly chosen being below 12.05?
 
-# Confidence Interval Format:
-#   Point Estimate +- Margin of Error.
+# Handles two-sided confidence intervals where the only value
+# had is a confidence level for the interval.
+find_critical_value_with_confidence_level <- function(confidence_level=0.0) {
+  mean <- 0
+  standard_deviation <- 1
+  x <- ((1 + confidence_level)/2)
+  qnorm(x, mean, standard_deviation)
+}
+find_critical_value(confidence_level = 0.99)
 
-# Given I know a Confidence Interval
-# And a Standard Deviation
-# And a Sample Size
-# Then I can find the Margin of Error
+# Handles Two-Sided Confidence Intervals
+find_critical_value_with_df <- function(confidence_level=0.0, df=0) {
+  x <- ((1 + confidence_level)/2)
+  qt(x, df)
+}
+find_critical_value_with_df(confidence_level = 0.96, df=20)
 
-# z(a/2) -> 
-
-# Estimating Population Proportion:
-# 1. Given a Population (P) and a Subset (S)
-# 2. Find Subset/Population -> P-Hat (proportion of trials)
-# 3. 
-
-# Estimating True Mean from Sample Mean:
-# 1. If I wasn't provided with Standard Deviation then calculate it from Variance. sqrt(V)
-# 2. N=number of samples
-# 3. MEAN=Average
-# 4. STANDARD_DEVIATION = (SQRT(V) || SD())
-# 5. T=ZTable(((1-CONFIDENCE_LEVEL)/2))
-# 6. SE=STANDARD_DEVIATION/SQRT(N)
-# 7. MEAN +- (T * SE)
-
-# Estimating True Mean from Sample Mean:
-# 2. N=11
-# 3. MEAN=24.5
-# 4. STANDARD_DEVIATION = 2.6
-# 5. ZTable(((1-0.8)/2)) -> 0.5793
-# 6. SE=STANDARD_DEVIATION/SQRT(N) -> 0.783
-# 7. MEAN +- (T * SE) -> 24.6 + (0.5398 * 0.783)
-# 8. MOE = (0.5398 * 0.783)/sqrt(11) -> 0.1274
-# 9. 24.5 +- 0.1367
+find_margin_of_error_of_mean <- function(sample_size = 0.0, confidence_level = 0.0, sd = 0.0) {
+  alpha <- 1 - confidence_level
+  t_critical_value <- alpha / 2
+  degrees_of_freedom <- sample_size - 1
+  t_actual_value <- -qt(t_critical_value, degrees_of_freedom)
+  t_actual_value * sd / sqrt(sample_size)
+}
+find_margin_of_error_of_mean(sample_size = 80, confidence_level = 0.80, sd = 1)
 
 
-# 
-# For Example:
-# N = 9
-# On March 10, 2020, nine NBA games were played. 
-#
-# MEAN=226
-# Average number of points scored in those games was 226, 
-#
-# SD=11.07
-# with a sample variance of 122.5.
-# 
-# CONFIDENCE_LEVEL=0.90
-# 
-# ZT = (qnorm(0.1) -> (1.281)
-#
-# SE=11.07/SQRT(N) -> 3.69
-#
-# 226 +- (1.0398 * 3.69)
-# UPPER = 226 + (1.282 * 3.69) -> 230.7306
-# LOWER = 226 - (1.282 * 3.69) -> 221.2694
-
-# Confidence Intervals:
-#   0. Components:
-#     a. Standard Deviation -> i.e., square root of variance σ
-#     b. Variance -> i.e., standard deviation squared σ
-#   1. If I have a sample size "η", a sample average "μ", and a standard deviation "s"
-#   i. standard error cum ("s"/sqrt(η)).
-#  ii. α cum difference (1 & confidence-level).
-# iii. ζ(α over 2) -> crit
-#  iv. answer cum (mean +- ζ(α over 2)) * (standard error).
-#
-#   2. e.g.:
-#        i. 
-#         i. Random Sample of 60 houses, Sample Average 161.61, Standard Deviation 12.83
-#         ii. Find 95% confidence interval of true mean.
-#        ii. standard_error == ((12.83 / sqrt(60)) == 1.656)
-#       iii. (α == ((1 - 0.95) == 0.05)) -> (crit == 1.1974)
-#        iv. sample mean +- (crit) * (standard error))
-#         a. 161.61 +- (1.1974 * 1.656)
-#          i. (161.61 - (1.1974 * 1.656) == 159.6271)
-#         ii. (161.61 + (1.1974 * 1.656) == 163.5929)
-#        ii. (159.62171 - 163.5929) 
-
-# Really all that's needed is list and confidence level. +- 0.000n.
-# Seems to be more accurate than manually building confidence interval
-# Works With:
-#   1. Professional tennis player John Isner is known for having a fast serve; his fastest recorded serve ever is 157.2 miles per hour. A sample of 10 of Isner’s serves is collected, and you observe the following speeds in miles per hour: 142, 143, 143, 144, 146, 146, 146, 147, 147, and 150. The standard deviation of his serve speed is known to be  = 3.
-#      Assuming that the distribution of his serve speed follows a normal distribution, construct a 90% confidence interval for the true mean of his serve speed.
-# 
+# @begin simply_construct_confidence_interval
 simply_construct_confidence_interval <- function(sample=c(), confidence_level=0.0) {
   result <- t.test(sample, conf.level = confidence_level)
   print(result$conf.int)
 }
-#simply_construct_confidence_interval(
-#  sample = c(142, 143, 143, 144, 146, 146, 146, 147, 147, 150),
-#  confidence_level = 0.9
-#)
+# @end simply_construct_confidence_interval
 
-#####
-# e.g., True average / acre private island from list and confidence level.
-simply_construct_confidence_interval(
-  sample = c(173503, 311219, 137943, 551198, 336016, 140520, 362863, 405515),
-  confidence_level = 0.9
-)
-# Returns a Lower and Upper bound.
-#####
-
-#####
-# e.g., avg. length of movie.
-simply_construct_confidence_interval(
-  sample = c(79,90,94,95,102,102,107,117),
-  confidence_level = 0.85
-)
-# Returns a Lower and Upper bound.
-#####
-
-#####
-# e.g., Bacterial average cum Confidence Interval 95% E. Coli.
-simply_construct_confidence_interval(
-  sample = c(118,175,190,206,207,208,249,256,260,289),
-  confidence_level = 0.95
-)
-# Returns a Lower and Upper bound.
-#####
-
-# Minimum Requirements:
-#   1. A sample list of data
-#   2. Standard Deviation
-#   3. Confidence Level
-construct_confidence_interval_easy <- function(sample=list(), standard_deviation=0.0, confidence_level=0.0) {
+# Handles constructing a confidence interval of a #true_mean.
+# @begin construct_confidence_interval_easy
+construct_confidence_interval_easy <- function(sample=list(), standard_deviation=0.0, confidence_level=0.0, sample_size = 0, sample_mean = 0) {
   # Remainder of Confidence Level.
   alpha           <- (1 - confidence_level)
 
@@ -137,9 +48,15 @@ construct_confidence_interval_easy <- function(sample=list(), standard_deviation
   lower           <- {}
   upper           <- {}
   t               <- {}  
-
-  sample.n        <- (length(sample))
-  sample.mean     <- (mean(unlist(sample)))
+  
+  if(length(sample) > 0){
+    sample.n        <- (length(sample))
+    sample.mean     <- (mean(unlist(sample)))  
+  } else {
+    sample.n <- sample_size
+    sample.mean <- sample_mean
+  }
+  
   # Allow for standard deviation to be provided because it could be different.
   if(standard_deviation != 0.0){ 
     sample.sd     <- (standard_deviation)
@@ -153,13 +70,11 @@ construct_confidence_interval_easy <- function(sample=list(), standard_deviation
   lower.bound     <- sample.mean - margin_of_error
   upper.bound     <- sample.mean + margin_of_error
   
-  
   print(c(lower.bound, upper.bound))
 }
+# @end construct_confidence_interval_easy
 construct_confidence_interval_easy(
-  sample = list(142, 143, 143, 144, 146, 146, 146, 147, 147, 150),
-  standard_deviation=3,
-  confidence_level=0.90
+  standard_deviation=1, confidence_level=0.80, sample_size = 80, sample_mean = 30/80
 )
 
 # @param Float point_estimate Point Estimate Estimate of where the point is.
@@ -195,18 +110,7 @@ find_z_score_where_x_lte <- function(confidence_level=0, x_lte=0) {
 # @end find_z_score_where_x_lte
 find_z_score_where_x_lte(0.95) 
 
-# @begin find_confidence_interval
-find_confidence_interval <- function(confidence_level=0, sample_mean=0, sample_size=0, standard_deviation=0) {
-  lower = qnorm((1-confidence_level) / 2, sample_mean, standard_deviation/sqrt(sample_size))
-  upper = qnorm(confidence_level / 2, sample_mean, standard_deviation/sqrt(sample_size))
-  list(lower, upper)
-}
-find_confidence_interval(confidence_level=0.90, sample_mean=226, sample_size=9, standard_deviation=11.06797)
-# @end find_confidence_interval
-find_margin_of_error(confidence_level=0.95, sample_mean=10, sample_size=100, standard_deviation=3)
-
-# @begin find_confidence_interval_without_mean
-# This one works in Problem Sets.
+# @begin find_confidence_interval; √
 find_confidence_interval <- function(confidence_level=0, standard_deviation=0, sample_size=0) {
   alpha = 1 - confidence_level
   alpha_left_tail  = alpha/2
@@ -222,34 +126,12 @@ find_confidence_interval <- function(confidence_level=0, standard_deviation=0, s
   )
   print(data)
 }
-# @end find_confidence_interval_without_mean
-find_confidence_interval(confidence_level=0.80, standard_deviation=2.6, sample_size=13)
-
-# @begin find_confidence_interval_without_mean
-find_confidence_interval <- function(confidence_level=0, standard_deviation=0, sample_size=0, xbar = 0) {
-  alpha = 1 - confidence_level
-  left_tail  = alpha/2
-  right_tail = left_tail
-  mid = 1 - right_tail
-  critical_value = round(qnorm(left_tail), 2)
-  margin_of_error_left = critical_value * standard_deviation/sqrt(sample_size)
-  margin_of_error_right = -critical_value * standard_deviation/sqrt(sample_size)
-  data = c(
-    alpha = alpha,
-    critical_value = critical_value,
-    left_tail = left_tail,
-    margin_of_error_left = margin_of_error_left,
-    lower = xbar + margin_of_error_left,
-    mid = mid,
-    right_tail = right_tail,
-    margin_of_error_right = margin_of_error_left,
-    upper = xbar + margin_of_error_right
-  )
-
-  print(data)
-}
-# @end find_confidence_interval_without_mean
-find_confidence_interval(confidence_level=0.95, standard_deviation=3, sample_size=36, xbar=68)
+# @end find_confidence_interval
+find_confidence_interval(
+  confidence_level = 0.90,
+  standard_deviation = 3,
+  sample_size=10
+)
 
 # @begin find_margin_of_error_from_confidence_interval
 find_margin_of_error_from_confidence_interval <- function(confidence_interval=list(), xbar=0) {

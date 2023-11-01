@@ -27,7 +27,7 @@ find_standard_deviation_of_a_binomial_random_variable <- function(number_of_tria
 }
 # @end derive_mean_and_or_expected_value_from_X
 derive_mean_and_or_expected_value_from_X(30, 0.1)
-find_standard_deviation_of_a_binomial_random_variable(252, (1/6), (5/6), 6)
+find_standard_deviation_of_a_binomial_random_variable(200, 0.55, (5/6), 6)
 
 # Given a test of probability of an event occurring within an interval,
 # And the probability of an outcome one time is known
@@ -69,7 +69,7 @@ what_is_p_of_x_when_equals(n = 15, eq = 7, p = 0.6)
 # @begin what_is_p_of_x_when_lte
 what_is_p_of_x_when_lte <- function(n = 0, lte = 0, p = 0) { pbinom(lte, size = n, prob = p) }
 # @end what_is_p_of_x_when_lte
-what_is_p_of_x_when_lte(n = 17, lte = 7, p = 0.4)
+what_is_p_of_x_when_lte(n = 200, lte = 0.5, p = 0.55)
 
 # Find the probability of a random variable X having an outcome between A and B times.
 # @param from At least how many successes

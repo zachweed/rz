@@ -1,3 +1,9 @@
+# @begin probabilityOfMeanLessThan
+probabilityOfMeanLessThan <- function(distribution_lower=0.0, distribution_upper=0.0, sample_size=0.0, less_than=0.0) {
+  print("Desmos")
+}
+# @end probabilityOfMeanLessThan
+
 probability_of_something_between <- function(mean=0.0, sample_size=0.0, standard_deviation=0.0){
   mean * sample_si
 }
@@ -245,3 +251,25 @@ test_what_is_probability_of_rando <- function() {
   )
 }
 test_what_is_probability_of_rando()
+
+# Given a test of probability of an event occurring within an interval,
+# And the probability of an outcome one time is known
+# And the number of attempts
+# Then return the probability of a successful outcome (outcome meets expectation).
+# This happens by subtracting two binomial distributions from eachother.
+# @param Numeric between_first_number left_hand of interval
+# @param Numeric between_second_number right_hand of interval
+# @param Numeric number_of_samples how many attempts?
+# @param Numeric probability probability of outcome
+# @return binomial distribution of something happening at least x times.
+# @begin what_is_probability_of_success
+what_is_probability_of_success <- function(between_first_number=0, between_second_number=0, number_of_samples=0, probability=0) {
+  pbinom(between_second_number, number_of_samples, probability) - pbinom((between_first_number - 1), number_of_samples, probability)
+}
+# @end what_is_probability_of_success
+what_is_probability_of_success(
+  between_first_number=11,
+  between_second_number=20, 
+  number_of_samples=37,
+  probability=0.300
+)
