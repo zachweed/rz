@@ -1,25 +1,47 @@
-library("ggplot2")
+############################################
+# Confidence Intervals Helper Functions    #
+############################################
 
-# Given a mean of 12 fl. oz. & SD of 0.1oz,
-# Then what is the probability of 35 randomly chosen being below 12.05?
+# Identify Standard from stdev and sample size. 
+# @param sd: standard_deviation
+# @param n: sample size
+# @begin standard_error
+standard_error <- function(sd=0.0, n=0) { sd/sqrt(n) }
+# @end standard_error
 
-# Handles two-sided confidence intervals where the only value
-# had is a confidence level for the interval.
+# Handles two-sided confidence intervals where the only value had is a confidence level for the interval.
+# This is done through default mean and stdev of 0 and 1, respectively.
+# Then, it finds the inversecdf with default values and a critical value of ((1 + confidence_level) / 2)
+# The latter part is determined through a Z-Table Lookup from qnorm function.
+# @param confidence_level
+# @begin find_critical_value_with_confidence_level
 find_critical_value_with_confidence_level <- function(confidence_level=0.0) {
   mean <- 0
   standard_deviation <- 1
   x <- ((1 + confidence_level)/2)
   qnorm(x, mean, standard_deviation)
 }
-find_critical_value(confidence_level = 0.99)
+# @end find_critical_value_with_confidence_level
 
-# Handles Two-Sided Confidence Intervals
+# Given a confidence level and degrees of freedom, find probability,
+# And plug these into qt function to determine critical value from Z-Table
+# @param confidence_level
+# @param df: degrees of freedom
+# @begin find_critical_value_with_df
 find_critical_value_with_df <- function(confidence_level=0.0, df=0) {
   x <- ((1 + confidence_level)/2)
   qt(x, df)
 }
-find_critical_value_with_df(confidence_level = 0.96, df=20)
+# @end find_critical_value_with_df
 
+
+# Given a sample_size, confidence level, and standard deviation,
+# determine MOE - Margin of Error of a sample mean.
+# And plug these into qt function to determine critical value from Z-Table
+# @param sample_size
+# @param confidence_level
+# @return MOE of mean.
+# @begin sd: standard deviation
 find_margin_of_error_of_mean <- function(sample_size = 0.0, confidence_level = 0.0, sd = 0.0) {
   alpha <- 1 - confidence_level
   t_critical_value <- alpha / 2
@@ -27,9 +49,14 @@ find_margin_of_error_of_mean <- function(sample_size = 0.0, confidence_level = 0
   t_actual_value <- -qt(t_critical_value, degrees_of_freedom)
   t_actual_value * sd / sqrt(sample_size)
 }
-find_margin_of_error_of_mean(sample_size = 80, confidence_level = 0.80, sd = 1)
+# @end find_margin_of_error_of_mean
 
 
+# Given a list of values, and a confidence level,
+# find a confidence interval.
+# @param sample: Vector of Ints.
+# @param confidence_level
+# @return Upper and Lower Bounds.
 # @begin simply_construct_confidence_interval
 simply_construct_confidence_interval <- function(sample=c(), confidence_level=0.0) {
   result <- t.test(sample, conf.level = confidence_level)
@@ -37,6 +64,12 @@ simply_construct_confidence_interval <- function(sample=c(), confidence_level=0.
 }
 # @end simply_construct_confidence_interval
 
+# @param sample: Optional, list of sample values.
+# @param standard_deviation: Optional, if sample is provided.
+# @param confidence_level.
+# @param sample_size: Optional, if sample list is provided.
+# @param sample_mean: Optional, if sample list is provided.
+# @return Confidence Interval's Upper and Lower bounds.
 # Handles constructing a confidence interval of a #true_mean.
 # @begin construct_confidence_interval_easy
 construct_confidence_interval_easy <- function(sample=list(), standard_deviation=0.0, confidence_level=0.0, sample_size = 0, sample_mean = 0) {
@@ -73,25 +106,21 @@ construct_confidence_interval_easy <- function(sample=list(), standard_deviation
   print(c(lower.bound, upper.bound))
 }
 # @end construct_confidence_interval_easy
-construct_confidence_interval_easy(
-  standard_deviation=1, confidence_level=0.80, sample_size = 80, sample_mean = 30/80
-)
 
 # @param Float point_estimate Point Estimate Estimate of where the point is.
 # @param Float margin_of_error Margin of Error 
 # @return estimate_of_confidence_interval
-# @begin estimate_confidence_interval
+# @begin derive_mean_and_or_expected_value_from_X
 derive_mean_and_or_expected_value_from_X <- function(point_estimate, margin_of_error) {
   list((point_estimate - margin_of_error), (point_estimate + margin_of_error))
 }
 # @end derive_mean_and_or_expected_value_from_X
-derive_mean_and_or_expected_value_from_X
 
 # @param Numeric sample_mean
 # @param Numeric margin_of_error
 # @return estimate_of_confidence_interval
 # @begin derive_population_mean
-derive_population_mean <- function(sample_mean=0, margin_of_error=0, confidence_level=0.95) {
+derive_population_mean <- function(sample_mean=0, margin_of_error=0, confidence_level=0.0) {
   list((sample_mean - margin_of_error), (sample_mean + margin_of_error))
   print("With")
   print(confidence_level)
@@ -100,15 +129,16 @@ derive_population_mean <- function(sample_mean=0, margin_of_error=0, confidence_
   print(list((sample_mean - margin_of_error), (sample_mean + margin_of_error)))
 }
 # @end derive_population_mean
-derive_population_mean(sample=15, margin_of_error=3.2)
 
+# @param confidence_level
+# @param x_lte
+# @return z_score where x is less than something.
 # @begin find_z_score_where_x_lte
 find_z_score_where_x_lte <- function(confidence_level=0, x_lte=0) {
   confidence = 1-confidence_level
   qnorm(1 - confidence / 2)
 }
 # @end find_z_score_where_x_lte
-find_z_score_where_x_lte(0.95) 
 
 # @begin find_confidence_interval; √
 find_confidence_interval <- function(confidence_level=0, standard_deviation=0, sample_size=0) {
@@ -153,21 +183,39 @@ find_sample_mean_from_confidence_interval <- function(confidence_interval=list()
 # @end find_sample_mean_from_confidence_interval
 find_sample_mean_from_confidence_interval(confidence_interval = list(42.12, 47.88))
 
-# @begin moe
-moe <- function(z_value, alpha, standard_deviation) {
-  (qnorm(zvalue) * standard_deviation/sqrt(sample_size))
+# @begin find_sample_size_for_moe (find n given a MOE and NOT SD)
+# assumes we're finding a sample size for a MOE smaller than X.
+# @param confidence_level  - estimated success
+# @param p_hat             - estimated success
+#        q_hat             - estimated failure
+# @param moe               - margin of error
+find_sample_size_for_moe <- function(confidence_level=0.0, margin_of_error=0.0, p_hat = 0.0) {
+  z_alpha <- -qnorm((1-confidence_level)/2)
+  q_hat   <- 1 - p_hat
+  n       <- (((z_alpha ^ 2) * (p_hat * q_hat))/(margin_of_error ^ 2))
+  n
 }
-# @end moe
+# @end find_sample_size_for_moe
 
-# @begin z_value
-z_value <- function(confidence_level=0){
- (1-confidence_level)/2 
+# @begin find_sample_size_for_moe (find n given a MOE and with a SD)
+# @param confidence_level  - estimated success
+# @param sd                - estimated success
+# @param moe               - margin of error
+# @return sample size, given margin of error.
+# @begin find_sample_size_for_moe
+find_sample_size_for_moe <- function(confidence_level=0.0, margin_of_error=0.0, sd = 0.0) {
+  z_alpha <- -qnorm((1-confidence_level)/2)
+  n       <- (((z_alpha ^ 2) * (sd ^ 2))/(margin_of_error ^ 2))
+  n
 }
-# @end z_value
+# @end find_sample_size_for_moe
 
+# @param z_value
+# @param standard_deviation
+# @param moe
+# @return an optimal sample size
 # @begin optimal_sample_size
 optimal_sample_size <- function(z_value, standard_deviation, moe) {
   ceiling(((qnorm(z_value) ^ 2) * (standard_deviation ^ 2)) / (moe ^ 2))
 }
 # @end optimal_sample_size
-optimal_sample_size(0.025, 15, 2)

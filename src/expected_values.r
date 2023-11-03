@@ -1,7 +1,12 @@
+###################################
+# Expected Value Helper Functions #
+###################################
+
+# @param probabilities: Vector of probability values.
 # @return Expected Value Given a Probability Mass Function
 # aka: long-term average
 # aka: sum(all averages)
-# @begin expectedValue
+# @begin expected_value
 expected_value <- function(probabilities) {
   sum = 0
   iteration = 1
@@ -11,12 +16,4 @@ expected_value <- function(probabilities) {
   }
   sum
 }
-expected_value(
-  c(
-    0.2, 
-    0.4,
-    0.3,
-    0.1
-   )
-)
-# @end expectedValue
+# @end expected_value

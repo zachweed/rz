@@ -36,10 +36,6 @@ sampling_distribution <- setRefClass("SamplingDistribution",
 )
 # @end TScore
 
-# Given a company with a product normally in N Fl. Oz.,
-# And a standard deviation of N
-# And an actual amount contained as A,
-# What is the probability that a sample mean of B deviates C?
 sdist <- sampling_distribution(
   sample_mean=12,
   standard_deviation=0.1, 
@@ -47,11 +43,6 @@ sdist <- sampling_distribution(
 )
 sdist$find_probability_for_mean(gte=12.04)
 
-
-# Given a company with a product normally in N Fl. Oz.,
-# And a standard deviation of N
-# And an actual amount contained as A,
-# What is the probability that a sample mean of is between Y and Z?
 sdist <- sampling_distribution(
   sample_mean=12,
   standard_deviation=0.1, 
@@ -59,11 +50,6 @@ sdist <- sampling_distribution(
 )
 sdist$find_probability_for_mean(lte = 12.06, gte=11.97)
 
-
-# Given a company with a product normally in N Fl. Oz.,
-# And a standard deviation of N
-# And an actual amount contained as A,
-# What is the probability that a sample mean of is between Y and Z?
 sdist <- sampling_distribution(
   sample_mean=4,
   standard_deviation=0.1, 

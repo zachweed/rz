@@ -1,8 +1,7 @@
-# What is the Expected value of a series of probabilities
-# in a probability mass function?
-#   Application:
-#     1. Betting on something and finding E[X].
-#     2. Abstract data and finding E[X].
+#####################################
+# Probability Mass Function Helpers #
+#####################################
+
 # @param list_of_probabilities List[Vector[Int, Int]]
 # @return Positive or Negative Int; doesn't have to be between 0 and 1.
 # @begin what_is_expected_value_of_pmf
@@ -23,22 +22,6 @@ what_is_expected_value_of_pmf <- function(list_of_probabilities = list_of_probab
   sum
 }
 # @end what_is_expected_value_of_pmf
-what_is_expected_value_of_pmf(
-  list_of_probabilities = list(
-    c(
-      (0.1), 1
-    ),
-    c(
-      (0.1), 2
-    ),
-    c(
-      (0.7), 3
-    ),
-    c(
-      (0.1), 4
-    )
-  )
-)
 
 # @param all probabilities
 # @return If probability mass function
@@ -81,22 +64,6 @@ what_is_sdev_of_probability_distribution <- function(list_of_probabilities) {
   sqrt(what_is_y_of_probability_distribution(list_of_probabilities))
 }
 # @end what_is_sdev_of_probability_distribution
-what_is_sdev_of_probability_distribution(
-  list(
-    c(
-      0.7, 1
-    ),
-    c(
-      0.1, 2
-    ),
-    c(
-      0.1, 3
-    ),
-    c(
-      0.1, 4
-    )
-  )
-)
 
 # @begin what_is_variance_of_probability_distribution
 # @param List[Vectors] these are a Probabilty Mass Function Table.
@@ -105,15 +72,6 @@ what_is_variance_of_probability_distribution <- function(list_of_probabilities) 
   what_is_y_of_probability_distribution(list_of_probabilities)
 }
 # @end what_is_variance_of_probability_distribution
-what_is_variance_of_probability_distribution(
-  list(
-    c(0.8, -10),
-    c(0.1, 5),
-    c(0.1, 10)
-  )
-)
-
-
 
 ###################################
 #           Tests                 #

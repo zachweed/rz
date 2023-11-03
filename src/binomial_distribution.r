@@ -1,5 +1,5 @@
 #####################################
-# 0. Binomial Distribution.          #
+# 0. Binomial Distribution.         #
 # 1. Application thereof.           #
 # 3. Distribution between values.   #
 #####################################
@@ -44,12 +44,6 @@ what_is_probability_of_success <- function(between_first_number=0, between_secon
   pbinom(between_second_number, number_of_samples, probability) - pbinom((between_first_number - 1), number_of_samples, probability)
 }
 # @end what_is_probability_of_success
-what_is_probability_of_success(
-  between_first_number=0,
-  between_second_number=20, 
-  number_of_samples=43, 
-  probability=0.315
-)
 
 # Find exact probability of a random variable X in binomial distribution.
 # @param n Vector of Probabilities

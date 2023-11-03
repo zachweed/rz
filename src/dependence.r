@@ -1,19 +1,18 @@
+#################################
+# Working with dependent events #
+#################################
+
 # @return Probability of an unknown from knowns.
 # Given knowns, find probability of an unknown
 # Through finding complements.
 # e.g., If we know one thing, and another thing given the initial thing,
 #        what is the probability of a false positive?
-# 
-findUnknown <- function(
-                 someProbability, 
-                 someOtherProbability, 
-                 someInverseProbability, 
-                 someOtherInverseProbability
-               ) {
+#
+# @begin findUnknown
+findUnknown <- function(someProbability, someOtherProbability, someInverseProbability, someOtherInverseProbability) {
   (someProbability * someOtherProbability) + (someInverseProbability * someOtherInverseProbability)
 }
-A=0.12; B=0.8; C=(1-A); D=(1-B)
-findUnknown(A,B,C,D)
+# @end findUnknown
 
 # Determine if they are equal.
 # @param probability_of_a Float -> probability of one event.
@@ -28,28 +27,29 @@ is_independent <- function(probability_of_a, probability_of_b, probability_of_bo
 is_independent(0.2, 0.2, 0.04)
 # @end is_independent
 
+# @param a - P
+# @param b - P
+# @param both - P
 # @return Boolean if events are dependent.
 # @begin is_dependent
 is_dependent <- function(a, b, both) {
   is_independent(a, b, both) != TRUE
 }
-is_dependent((5/6), (3/6), 1)
 # @end is_dependent
 
+# @param probability_of_a
+# @param probability_of_b
+# @param probability_of_both
 # @return Boolean if events are dependent.
 # @begin is_mutually_exclusive_with_both
 is_mutually_exclusive_with_both <- function(probability_of_a, probability_of_b, probability_of_both) {
   all.equal((probability_of_a + probability_of_b), probability_of_both) 
 }
-is_mutually_exclusive_with_both(0.15, 0.05, 0.18)
 # @end is_mutually_exclusive_with_both
 
+# @param all_options: Vector[Vector[Int]]
 # @begin is_mutually_exclusive_without_both
 is_mutually_exclusive_without_both <- function(all_options) {
   setdiff(all_options[1], all_options[2])
 }
-A = c(5)
-B = c(1,3,5)
-O = list(A, B)
-is_mutually_exclusive_without_both(O) != A[1]
 # @end is_mutually_exclusive_without_both

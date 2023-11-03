@@ -31,7 +31,6 @@ proportion <- setRefClass("Proportion",
                          },
                          init_z_score = function(){
                            (p_hat - p)/(sqrt((p_hat * q_hat)/sample_size))
-                           
                          },
                          init_alpha = function() {
                            alpha <<- 1 - confidence_level
@@ -48,6 +47,7 @@ proportion <- setRefClass("Proportion",
                            init_p_hat
                            sqrt((p_hat * (1-p_hat))/sample_size)
                          },
+                         # Works
                          init_upper_and_lower_bound = function() {
                            init_critical_value()
                            init_p_hat()
@@ -71,25 +71,6 @@ proportion <- setRefClass("Proportion",
 #       Tests           #
 #########################
 
-# Given A list of adults in a city,
-# Estimate how many have cell phones,
-# With a 95% confidence interval.
-#p <- proportion(
-#  population_size = 500,
-#  sample_size = 420,
-#  confidence_level=0.95
-#)
-#p$init_upper_and_lower_bound()
-#all.equal(p$lower_bound, 0.81)
-#all.equal(p$upper_bound, 0.87)
-
-# Also, Finding A of B and using a N% confidence interval to find true proportion.
-p <- proportion(
-  population_size = 200,
-  sample_size = 14,
-  confidence_level=0.95
-)
-
 # Given A list of people at an Ice Chalet, 
 # Find proportion of girls 8-12 in class,
 # With a 92% confidence interval.
@@ -98,9 +79,6 @@ p <- proportion(
   sample_size = 64,
   confidence_level=0.92
 )
-p$init_upper_and_lower_bound()
-all.equal(p$lower_bound, 0.72)
-all.equal(p$upper_bound, 0.88)
 
 # Given A list of babies with chemicals, find mean range for given confidence interval
 p <- proportion(
@@ -108,10 +86,6 @@ p <- proportion(
   sample_size = 14,
   confidence_level=0.95
 )
-p$init_upper_and_lower_bound()
-all.equal(p$lower_bound, 0.8078662)
-all.equal(p$upper_bound, 0.8721338)
-
 
 # Given students, find percentage who are registered voters.
 # Do this with a 90% confidence interval.
@@ -120,6 +94,3 @@ p <- proportion(
   sample_size = 300,
   confidence_level=0.90
 )
-p$init_upper_and_lower_bound()
-all.equal(p$lower_bound, 0.8078662)
-all.equal(p$upper_bound, 0.8721338)

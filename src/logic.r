@@ -1,3 +1,7 @@
+############################
+# Logical Helper Functions #
+############################
+
 # Given a two outcomes of of an event,
 # And an outcome of a combination of those events
 # Then return complement without double-counted combination.

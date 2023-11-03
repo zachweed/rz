@@ -1,18 +1,6 @@
-# @begin probabilityOfMeanLessThan
-probabilityOfMeanLessThan <- function(distribution_lower=0.0, distribution_upper=0.0, sample_size=0.0, less_than=0.0) {
-  print("Desmos")
-}
-# @end probabilityOfMeanLessThan
-
-probability_of_something_between <- function(mean=0.0, sample_size=0.0, standard_deviation=0.0){
-  mean * sample_si
-}
-
-# Things like "suppose you can win between 1 and 5 for doing something"
-# What is probability X is 3?
-# Then X=3/5
-# i.e. intuitive.
-
+################################
+# Probability Helper Functions #
+################################
 
 # Probability of Random Variable between from and two
 # If variation then convert to standard deviation.
@@ -22,18 +10,14 @@ probability_of_rando_between <- function(mean=0, standard_deviation=1, from=0, t
   pnorm(from, mean=mean, sd=standard_deviation)
 }
 # @end probability_of_rando_between
-# probability_of_rando_between(mean=35,standard_deviation=0.1,from=102, to=111)
-probability_of_rando_between(mean=150,standard_deviation=36,from=7450, to=7850)
+
 # Essentially this solves a probability for a flipped known.
 # @begin solve_decision_tree
 solve_decision_tree <- function(probability_a, probability_b, probability_c) {
   (probability_a * probability_b) + ((probability_a + probability_b) * probability_c)
 }
 # @end solve_decision_tree
-solve_decision_tree(0.05, 0.7, 0.1)
 
-# Independence Rule
-# If there are different events make sure right one is flipped.
 # @return What is probability of independent events with two outcomes?
 # @param List[Vector[Numeric, Numeric]] probability pairs, where
 #        first number is 0 if NOT and 1 otherwise.
@@ -51,13 +35,6 @@ what_is_probability_of_sequence <- function(sequence) {
   counter
 }
 # @end what_is_probability_of_sequence
-what_is_probability_of_sequence(
-  list(
-    c(1, 0.8),
-    c(1, 0.8),
-    c(1, 0.2)
-  )
-)
 
 # @return What is stacked probability of an outcome?
 #         i.e., dependent probability.
@@ -71,13 +48,6 @@ what_is_stacked_probability_outcome <- function(probabilities) {
   counter
 }
 # @end what_is_stacked_probability_outcome
-what_is_stacked_probability_outcome(
-  list(
-    c(0.9, 0.55),
-    c(0.08, 0.45),
-    c(0.02, 0.15)
-  )
-)
 
 # @return What is stacked probability of an outcome with not?
 # @param List[Vector] probability pairs
@@ -90,32 +60,12 @@ what_is_stacked_probability_outcome_with_not <- function(probabilities) {
   counter
 }
 # @end what_is_stacked_probability_outcome
-what_is_stacked_probability_outcome_with_not(
-  list(
-    c(0.1, 0.9),
-    c(0.9, 0.1),
-    c(0.2, 0.8)
-  )
-)
-
-what_is_stacked_probability_outcome(list(
-  # supra-attribute, sub-attribute
-  c(0.9, 0.6),
-  # supra-attribute, sub-attribute
-  c(0.08, 0.75),
-  # supra-attribute, sub-attribute
-  c(0.02, 0.60)
-))
-
 
 # @return What the probability of two mutually exclusive events
 # @param Probability of event A
 # @param Probability of event B
 # @begin what_is_probability_of_two_mutually_exclusive_events_combined
-what_is_probability_of_two_mutually_exclusive_events_combined <- function(A, B) {
-  A+B
-}
-what_is_probability_of_two_mutually_exclusive_events_combined(0.1, 0.1)
+what_is_probability_of_two_mutually_exclusive_events_combined <- function(A, B) { A+B }
 # @end what_is_probability_of_two_mutually_exclusive_events_combined
 
 # Given I have probability of two events
@@ -128,10 +78,6 @@ what_is_probability_of_two_events_given_relation <- function(probability_of_both
   outcome = probability_of_both / given_that
   print(outcome)
 }
-what_is_probability_of_two_events_given_relation(
-  probability_of_both = 0.03,
-  given_that = 0.36
-)
 # @end what_is_probability_of_two_events_given_relation
 
 # @return What the probability of two dependent events is.
