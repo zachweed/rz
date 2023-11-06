@@ -219,3 +219,8 @@ optimal_sample_size <- function(z_value, standard_deviation, moe) {
   ceiling(((qnorm(z_value) ^ 2) * (standard_deviation ^ 2)) / (moe ^ 2))
 }
 # @end optimal_sample_size
+
+test_margin_of_error_of_mean <- function() {
+  all.equal(find_margin_of_error_of_mean(sample_size=13, confidence_level=0.9, sd=0.03), 0.01482953)
+}
+test_margin_of_error_of_mean()
