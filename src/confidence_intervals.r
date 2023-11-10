@@ -15,11 +15,15 @@ standard_error <- function(sd=0.0, n=0) { sd/sqrt(n) }
 # The latter part is determined through a Z-Table Lookup from qnorm function.
 # @param confidence_level
 # @begin find_critical_value_with_confidence_level
-find_critical_value_with_confidence_level <- function(confidence_level=0.0) {
-  mean <- 0
-  standard_deviation <- 1
-  x <- ((1 + confidence_level)/2)
-  qnorm(x, mean, standard_deviation)
+find_critical_value_with_confidence_level <- function(confidence_level=0.0, df=0) {
+  if(df > 0) {
+    qt((1+confidence_level) / 2, df)
+  } else {
+    mean <- 0
+    standard_deviation <- 1
+    x <- ((1 + confidence_level)/2)
+    qnorm(x, mean, standard_deviation)  
+  }
 }
 # @end find_critical_value_with_confidence_level
 
