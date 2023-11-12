@@ -1,5 +1,30 @@
 library(methods)
 
+# 1. if >= 95% of spark plugs pass then send batch.
+# I. Given a sample of 250, 242 passed
+# II. H_o -> (p < 0.95)
+# III. H_a -> (p > 0.95)
+
+# so, 242/250 passed, so what's teh probability of 95% passing at a alpha of 0.05.
+
+# critical_value: point on test distribution to compare test statistic; correspond to a.
+# 
+
+# 1. results of a hypothesis test will create a normal distribution.
+# 2. a reject region exists within the normal distribution.
+# 3. a test statistic could fall within the rejection region.
+# 4. so, with a=0.05:
+#   i. draw a vertical line through 5% of distribution.
+#  ii. draw a vertical line through point of critical value.
+# iii. if critical value is within rejection region then reject.
+#
+# two-tailed-test:
+#   reject null-hypothesis when critical_value < -absolute- value of test statistic.
+# right-tailed-test:
+#   reject null-hypothesis when critical value < value of test statistic.
+# left-tail-test:
+#   reject null-hypothesis when critical value > value of test statistic.
+
 # @begin Percentile
 null_hypothesis_test <- setRefClass("NullHypothesis",
   fields=list(
@@ -8,33 +33,6 @@ null_hypothesis_test <- setRefClass("NullHypothesis",
     xbar="numeric"
  ),
  methods=list(
-  # If given test statistic Z, find p-value.
-  # left is always considered less than here.
-  p_value = function() {
-    left <- pnorm(z_stat())
-    right <- 1 - pnorm(z_stat())
-    two_tailed <- 2 * (1 - pnorm(abs(z_stat())))
-    print("if H_0 is true, probability of different mean is:")
-    print(left * 100)
-    if(alpha) { 
-      if(alpha > left) { 
-        print("and alpha is:")
-        print(alpha)
-        print("so reject null-hypothesis") 
-      } else {
-        print("so fail to reject null-hypothesis") 
-      }
-    }
-    print("all data:")
-    c(left, right, two_tailed)
-  },
-  break_down_data = function() {
-    diff <- -(h_a - h_o)
-    test_statistic <- (h_a - h_o)/( sqrt( ((h_a * (1 - h_a))/sample_size) ) )
-    left_of_test_statistic <- (test_statistic * diff)
-    right_of_test_statistic <- ((1 - test_statistic) * diff)
-    list(test_statistic, left_of_test_statistic, right_of_test_statistic)
-  },
   # one sample t-test looks for signification deviation from compared mu.
   one_sample_t_test = function(sample, alternative="greater") {
     print(t.test(sample, mu=mu, alternative=alternative))
@@ -50,31 +48,29 @@ null_hypothesis_test <- setRefClass("NullHypothesis",
       qnorm((1+confidence_level)/2, 0, 1)
     }
   },
-  init_df = function() {
-    d_f <<- (sample_size - 1)
-    print(d_f)
-  },
-  # Given means from two different observations,
-  # determine how rare event is by comparing to alpha.
-  # @return Whether or not to reject the null-hypothesis.
-  # @end test_p_value
-  test_p_value = function() {
-  p_value <- pnorm( (h_a - h_o) / (sd / sqrt(s) ) )
-  reject <- alpha > p_value
-
-    if(reject == TRUE){
-      print("Reject Null Hypothesis")
-    } else {
-      print("Fail to Reject Null Hypothesis")
+  calculate_p_value_for_normal_distribution_for_mean = function(tested_mean, expected_mean, standard_deviation=1, alpha=0.05, marker, sample_size) {
+    if(all.equal(marker, "<")){
+      print("area to the left is:")
+      pnorm( (tested_mean - expected_mean) / (standard_deviation / sqrt(sample_size)))
+      print("so that's the probability of less than or equal to the tested mean")
     }
   },
-  z_stat = function() { (x_bar - mu) / (sd/sqrt(s)) },
-  p_value_for = function(z = 0) { 1 - pnorm(z) },
-  p_value = function() { 2*(1-pnorm(abs(z_stat()))) },
-  # can be negative.
-  # always ((xbar - mu)/s*sqrt(n))
-  find_test_statistic = function() { (x_bar - mu)/(sd/sqrt(s)) }
-  # distance ( measured mean <-> null mean); in standard errors.
+  calculate_p_value_for_proportion_hypothesis_test = function(sample_proportion, null_hypothesis_proportion, n, marker) {
+    ab <- (sample_proportion - null_hypothesis_proportion) / sqrt(null_hypothesis_proportion * ((1 - null_hypothesis_proportion)/n))
+    if(marker == ">"){
+      print("P-VALUE IS:")
+      1 - pnorm(ab)
+    }
+    if(marker == "<"){
+      print("P-VALUE IS:")
+      pnorm(ab)
+    }
+    if(marker == "different"){
+      print("if null hypothesis is true, this is percentage chance of sample proportion differing")
+      print("P-VALUE IS:")
+      2 * (1- pnorm(abs(ab)))
+    }
+  }
  )
 )
 
