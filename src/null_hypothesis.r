@@ -33,19 +33,29 @@ null_hypothesis_test <- setRefClass("NullHypothesis",
     xbar="numeric"
  ),
  methods=list(
-  # one sample t-test looks for signification deviation from compared mu.
-  one_sample_t_test = function(sample, alternative="greater") {
-    print(t.test(sample, mu=mu, alternative=alternative))
-    print("Is p-value greater than alpha?")
-    print(alpha)
+  calculate_rejection_region = function(alpha, marker) {
+    if(marker == ">"){
+    }
+    if(marker == "<"){
+    }
+    if(marker == "different"){
+    }
+    qnorm(alpha/2)
   },
-  # two sample t-test looks for signification deviation between means
-  two_sample_t_test = function(sample_one, sample_two) {
-    print(t.test(sample_one, sample_two))
+  calculate_critical_value = function(alpha) {
+    calculate_rejection_region(alpha)
   },
-  init_cv = function(confidence_level=0.95) {
-    if(confidence_level != 0) {
-      qnorm((1+confidence_level)/2, 0, 1)
+  # Given means from two different observations,
+  # determine how rare event is by comparing to alpha.
+  # @return Whether or not to reject the null-hypothesis.
+  # @end test_p_value
+  test_p_value = function() {
+  p_value <- pnorm( (h_a - h_o) / (sd / sqrt(s) ) )
+  reject <- alpha > p_value
+    if(reject == TRUE){
+      print("Reject Null Hypothesis")
+    } else {
+      print("Fail to Reject Null Hypothesis")
     }
   },
   calculate_p_value_for_normal_distribution_for_mean = function(tested_mean, expected_mean, standard_deviation=1, alpha=0.05, marker, sample_size) {
@@ -55,20 +65,50 @@ null_hypothesis_test <- setRefClass("NullHypothesis",
       print("so that's the probability of less than or equal to the tested mean")
     }
   },
-  calculate_p_value_for_proportion_hypothesis_test = function(sample_proportion, null_hypothesis_proportion, n, marker) {
+  calculate_p_value_for_proportion_hypothesis_test = function(sample_proportion, null_hypothesis_proportion, n, marker, alpha) {
     ab <- (sample_proportion - null_hypothesis_proportion) / sqrt(null_hypothesis_proportion * ((1 - null_hypothesis_proportion)/n))
     if(marker == ">"){
       print("P-VALUE IS:")
-      1 - pnorm(ab)
+      p_value <- print(1 - pnorm(ab))
+      if(p_value > alpha){
+        print("reject")
+      } else {
+        print("fail to reject in favor of alternative")
+      }
     }
     if(marker == "<"){
       print("P-VALUE IS:")
-      pnorm(ab)
+      p_value <- pnorm(ab)
+      print(p_value)
+      if(p_value > alpha){
+        print("reject")
+      } else {
+        print("fail to reject in favor of alternative")
+      }
     }
     if(marker == "different"){
       print("if null hypothesis is true, this is percentage chance of sample proportion differing")
       print("P-VALUE IS:")
-      2 * (1- pnorm(abs(ab)))
+      p_value <- 2 * (1 - pnorm(abs(ab)))
+      print(p_value)
+      if(p_value > alpha){
+        print("reject")
+      } else {
+        print("fail to reject in favor of alternative")
+      }
+    }
+  },
+  calculate_test_type = function(sample_size){
+    if(sample_size < 30) {
+      print("t test")
+    } else {
+      print(" z test ")
+    }
+  },
+  calculate_rejection_region = function(alpha, marker) {
+    if(marker == ">"){}
+    if(marker == "<"){}
+    if(marker == "!="){
     }
   }
  )
