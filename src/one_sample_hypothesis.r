@@ -1,32 +1,7 @@
 library(methods)
 
-# 1. if >= 95% of spark plugs pass then send batch.
-# I. Given a sample of 250, 242 passed
-# II. H_o -> (p < 0.95)
-# III. H_a -> (p > 0.95)
-
-# so, 242/250 passed, so what's teh probability of 95% passing at a alpha of 0.05.
-
-# critical_value: point on test distribution to compare test statistic; correspond to a.
-# 
-
-# 1. results of a hypothesis test will create a normal distribution.
-# 2. a reject region exists within the normal distribution.
-# 3. a test statistic could fall within the rejection region.
-# 4. so, with a=0.05:
-#   i. draw a vertical line through 5% of distribution.
-#  ii. draw a vertical line through point of critical value.
-# iii. if critical value is within rejection region then reject.
-#
-# two-tailed-test:
-#   reject null-hypothesis when critical_value < -absolute- value of test statistic.
-# right-tailed-test:
-#   reject null-hypothesis when critical value < value of test statistic.
-# left-tail-test:
-#   reject null-hypothesis when critical value > value of test statistic.
-
-# @begin Percentile
-null_hypothesis_test <- setRefClass("NullHypothesis",
+# @begin Hypothesis
+hypothesis_test <- setRefClass("Hypothesis",
   fields=list(
     rate="numeric", alpha="numeric", gt="numeric", sub_sample_size="numeric", p0="numeric", q0="numeric", mu="numeric", x_bar="numeric", h_o="numeric", h_a="numeric",
     d_f="numeric", significance_level="numeric", s="numeric", sd="numeric", critical_value="numeric", test_statistic="numeric", tail_number="numeric", sample_size="numeric",
@@ -110,18 +85,14 @@ null_hypothesis_test <- setRefClass("NullHypothesis",
     if(marker == "<"){}
     if(marker == "!="){
     }
+  },
+  find_one_sample_test_statistic = function(x_bar, mu, standard_deviation, sample_size) {
+    (x_bar - mu)/(standard_deviation/sqrt(sample_size))
+  },
+  find_two_sample_test_statistic = function(sd_one, sd_two, n_1, n_2) {
+    sqrt(
+      ( (((sd_one)^2)/n_1) + (((sd_two)^2)/n_2) )
+    )
   }
  )
 )
-
-test_cv <- function() {
-  n <- null_hypothesis_test()
-  all.equal(n$init_cv(), 2.053749)
-}
-test_cv()
-
-test_ts <- function() {
-  n <- null_hypothesis_test(s=10, mu=20, sd=3, alpha=0.01, x_bar=24.5)
-  all.equal(n$find_test_statistic(), 4.743416)
-}
-test_ts()
