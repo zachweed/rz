@@ -1,24 +1,34 @@
 # rz
 
-## Objects
+## Objects & Helper Modules
 
 ### TScore
 
-Representing Student's T-Distributions
+Student's T distributions & T-Scores, Degrees of Freedom, etc.
 
 ### Null-Hypothesis
 
-Null-hypothesis testing for single and double value T & Z tests.
+#### One-sample hypothesis
+
+single and double value T & Z tests
+
+#### Two-sample hypothesis
+
+single and double value T & Z tests
 
 ### Proportions
 
-### Sampling Distributions
+Proportion related sampling rather than strictly percentage related sampling.
 
-### T-Scores
+### Sampling Distributions
 
 ### Confidence Intervals
 
+finding confidence intervals.
+
 ### Binomial Distributions
+
+Working with Binomial Distributions.
 
 ## Require Conversion
 
