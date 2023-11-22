@@ -7,10 +7,15 @@ two_sample_hypothesis_test <- setRefClass("TwoSampleHypothesisTest",
                                  sd_one = "numeric", sd_two = "numeric", n_one = "numeric", n_two = "numeric"
                                ),
                                methods=list(
+                                 what_is_test_statistic = function(a, b) {
+                                   differences <- a - b
+                                   mean_differences <- sum(differences) / length(differences)
+                                   sum(differences) / length(differences) / (sd(differences) / sqrt(length(differences)))
+                                 },
                                  run_test = function(alpha, p_value) {
                                    if(alpha > p_value) { print("reject") }
                                    if(alpha < p_value) { print("fail to reject") }
-                                 }
+                                 },
                                  # i.e. z-score.
                                  find_test_statistic_no_difference = function() {
                                    ((x_bar_one - x_bar_two)) / sqrt((((sd_one)^2)/n_one)+(((sd_two)^2)/n_two))
@@ -59,3 +64,11 @@ test_test_statistic_to_p_value <- function() {
   all.equal((2*1-pnorm(1.1148)), 0.2649361)
 }
 test_test_statistic_to_p_value()
+
+test_test_statistic <- function() {
+  t <- two_sample_hypothesis_test()
+  all.equal(t$what_is_test_statistic(c(354, 540, 548, 363, 448, 422, 498, 525), c(340, 518, 536, 327, 425, 410, 473, 498)), 7.212283)
+  all.equal(t$what_is_test_statistic(c(354, 540, 548, 363, 448, 422, 498, 525), c(343, 518, 512, 354, 429, 401, 471, 507)), 6.713042)
+}
+test_test_statistic()
+
