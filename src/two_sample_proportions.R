@@ -25,7 +25,7 @@ two_sample_proportions <- setRefClass("TwoSampleProportions",
                                               (psample_A - psample_B) / sqrt(psample_pooled * (1-psample_pooled) * (1/n_sub_a + 1/n_sub_b))
                                             },
                                             two_tailed_p_value = function() {
-                                              2 * (1 - pnorm(z_stat()))
+                                              2 * pnorm(z_stat())
                                             },
                                             left_tailed_p_value = function() {
                                               1 - pnorm(z_stat())
