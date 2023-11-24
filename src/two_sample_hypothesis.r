@@ -20,12 +20,29 @@ two_sample_hypothesis_test <- setRefClass("TwoSampleHypothesisTest",
                                  find_test_statistic_no_difference = function() {
                                    ((x_bar_one - x_bar_two)) / sqrt((((sd_one)^2)/n_one)+(((sd_two)^2)/n_two))
                                  },
-                                 find_p_value_no_difference = function() {
-                                   2 * pt(find_test_statistic_no_difference(), degrees_of_freedom())
+                                 find_p_value_no_difference_ie_two_tailed = function(alpha=0) {
+                                   p_value <- 2 * pnorm(find_test_statistic_no_difference(), lower.tail=FALSE)
+                                   if(alpha > 0){
+                                     if(alpha > p_value){
+                                       print(p_value)
+                                       print("reject null hypothesis")
+                                     } else {
+                                       print("do not reject null hypothesis")
+                                     }
+                                   } else {
+                                     print(p_value)
+                                     print('without hypothesis testing')
+                                   }
                                  },
                                  # defaults to 5% significance level.
                                  find_p_value_greater_than = function() {
                                    1 - pnorm((x_bar_one - x_bar_two), 0, sqrt((sd_one^2/n_one + sd_two^2/n_two)))
+                                 },
+                                 find_left_tailed_p_value = function(test_statistic) {
+                                   pnorm(test_statistic, lower.tail=TRUE)
+                                 },
+                                 find_right_tailed_p_value = function(test_statistic) {
+                                   pnorm(test_statistic, lower.tail=FALSE)
                                  },
                                  # i.e. z-score.
                                  find_test_statistic_with_x_bar = function() {
@@ -41,8 +58,15 @@ two_sample_hypothesis_test <- setRefClass("TwoSampleHypothesisTest",
                                  should_reject_null_hypothesis = function(alpha=0, test_statistic = 0) {
                                    qnorm(alpha/2, lower.tail=FALSE) < test_statistic
                                  },
-                                 welchs_t_test_with_lists = function(list_one, list_two) {
-                                   t.test(list_one, list_two)
+                                 welchs_t_test_with_lists = function(list_one, list_two, alternative) {
+                                   if(sum(list_one) > sum(list_two)) {
+                                     dominant <- list_one
+                                     weaker <- list_two
+                                   } else {
+                                     dominant <- list_two
+                                     weaker <- list_one
+                                   }
+                                   t.test(dominant - list_two, alternative=alternative)
                                  },
                                  standard_error = function() {
                                    sqrt((sd_one^2/n_one)+(sd_two^2/n_two))
@@ -57,6 +81,7 @@ two_sample_hypothesis_test <- setRefClass("TwoSampleHypothesisTest",
                                  degrees_of_freedom = function() {
                                    (( (((sd_one ^ 2) / n_one) + (( sd_two ^ 2 )/n_two ))^2 / ( ((((sd_one ^ 2) / n_one)^2) / (n_one - 1)) + (((sd_two ^ 2) / n_two)^2)/(n_two - 1) )))
                                  }
+                                 
                                )
 )
 
