@@ -30,6 +30,6 @@ ChiSquared <- setRefClass("ChiSquared",
 )
 
 test_probability = function() {
-  
+ pchisq(21, df=20, lower.tail=FALSE) 
 }
 all.equal(test_probability(), 0.3971326)

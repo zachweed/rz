@@ -1,11 +1,51 @@
 ################################
 # Probability Helper Functions #
 ################################
+  
+# required: independent events. e.g., rolling N on a die, and choosing even card
+# @param Numeric set_of_chances 
+# @param Numeric another_set_of_chances 
+# @return Probability of successive chance
+# @begin find_successive_probability
+find_successive_probability <- function(set_of_chances, another_set_of_chances) {
+  set_of_chances * another_set_of_chances
+}
+# @end find_successive_probability
+
+# Given a test of probability, find probability
+# of an element of the combination.
+find_probability_given_combination <- function(x, y, z) {
+  v <- x + y
+  v - z
+}
+find_probability_given_combination(30.2, 39.9, 15.1)
+
+# Given a test of probability of an event occurring within an interval,
+# And the probability of an outcome one time is known
+# And the number of attempts
+# Then return the probability of a successful outcome (outcome meets expectation).
+# This happens by subtracting two binomial distributions from eachother.
+# @param Numeric between_first_number left_hand of interval
+# @param Numeric between_second_number right_hand of interval
+# @param Numeric number_of_samples how many attempts?
+# @param Numeric probability probability of outcome
+# @return binomial distribution of something happening at least x times.
+# @begin what_is_probability_of_success
+what_is_probability_of_success <- function(between_first_number=0, between_second_number=0, number_of_samples=0, probability=0) {
+  pbinom(between_second_number, number_of_samples, probability) - pbinom((between_first_number - 1), number_of_samples, probability)
+}
+# @end what_is_probability_of_success
+what_is_probability_of_success(
+  between_first_number=11,
+  between_second_number=20, 
+  number_of_samples=37,
+  probability=0.300
+)
 
 # Probability of Random Variable between from and two
 # If variation then convert to standard deviation.
 # @begin probability_of_rando_between
-probability_of_rando_between <- function(mean=0, standard_deviation=1, from=0, to=0) {
+probability_of_random_variable_between <- function(mean=0, standard_deviation=1, from=0, to=0) {
   pnorm(to, mean=mean, sd=standard_deviation) - 
   pnorm(from, mean=mean, sd=standard_deviation)
 }
@@ -40,16 +80,19 @@ what_is_probability_of_sequence <- function(sequence) {
 #         i.e., dependent probability.
 # @param List[Vector] probability pairs
 # @begin what_is_stacked_probability_outcome
+# @usage -> what_is_stacked_probability_outcome(list(c(0.9, 0.50), c(0.08, 0.85), c(0.02, 0.6))) => 0.47
 what_is_stacked_probability_outcome <- function(probabilities) {
   counter = 0
   for(p in probabilities) {
     counter = counter + (p[1] * p[2])
   }
-  counter
+  1 - counter
 }
 # @end what_is_stacked_probability_outcome
 
+# called "complement" of n.
 # @return What is stacked probability of an outcome with not?
+#         if it does not work then try manually.
 # @param List[Vector] probability pairs
 # @begin what_is_stacked_probability_outcome
 what_is_stacked_probability_outcome_with_not <- function(probabilities) {
@@ -65,7 +108,7 @@ what_is_stacked_probability_outcome_with_not <- function(probabilities) {
 # @param Probability of event A
 # @param Probability of event B
 # @begin what_is_probability_of_two_mutually_exclusive_events_combined
-what_is_probability_of_two_mutually_exclusive_events_combined <- function(A, B) { A+B }
+what_is_probability_of_two_mutually_exclusive_events <- function(A, B) { A+B }
 # @end what_is_probability_of_two_mutually_exclusive_events_combined
 
 # Given I have probability of two events
@@ -95,6 +138,15 @@ what_is_probability_of_two_dependent_events <- function(A, B) {
 what_is_probability_of_two_dependent_events(0.08, 0.37)
 # @end what_is_probability_of_two_events
 
+# @param Float a_or_b
+# @param Float a
+# @param Float b
+# @begin test_of_mutual_exclusivity
+test_of_mutual_exclusivity <- function(a_or_b, a, b) {
+  a_or_b == a + b
+}
+# @end test_of_mutual_exclusivity
+
 # @param Probability of an event.
 # @param How many times to multiply the event.
 # @return Likelihood of n events in a row.
@@ -123,12 +175,13 @@ what_is_probability_that_this_and_not_that <- function(a_what=0, both=0) {
 what_is_probability_that_this_and_not_that(a_what=0.7, both=0.2)
 # @end what_is_probability_that_this_and_not_that
 
-# @return Probability of Neither.
+# @return Probability of Neither by finding difference of summing probability of either 
+#         and probability of both.
 # @begin what_is_probability_that_neither
-what_is_probability_that_neither <- function(a=0, b=0, both=0) {
-  1 - ((a + b) - both)
-}
-what_is_probability_that_neither(a=0.6, b=0.5, both=0.4)
+# @param Float x
+# @param Float y
+# @param Float both
+what_is_probability_that_neither <- function(x=0, y=0, both=0) {1 - ((x + y) - both)}
 # @end what_is_probability_that_neither
 
 # @return Probability of Either.
@@ -198,24 +251,6 @@ test_what_is_probability_of_rando <- function() {
 }
 test_what_is_probability_of_rando()
 
-# Given a test of probability of an event occurring within an interval,
-# And the probability of an outcome one time is known
-# And the number of attempts
-# Then return the probability of a successful outcome (outcome meets expectation).
-# This happens by subtracting two binomial distributions from eachother.
-# @param Numeric between_first_number left_hand of interval
-# @param Numeric between_second_number right_hand of interval
-# @param Numeric number_of_samples how many attempts?
-# @param Numeric probability probability of outcome
-# @return binomial distribution of something happening at least x times.
-# @begin what_is_probability_of_success
-what_is_probability_of_success <- function(between_first_number=0, between_second_number=0, number_of_samples=0, probability=0) {
-  pbinom(between_second_number, number_of_samples, probability) - pbinom((between_first_number - 1), number_of_samples, probability)
+test_successive_chances <- function() {
+  find_successive_probability(1/6, 12/52)
 }
-# @end what_is_probability_of_success
-what_is_probability_of_success(
-  between_first_number=11,
-  between_second_number=20, 
-  number_of_samples=37,
-  probability=0.300
-)
