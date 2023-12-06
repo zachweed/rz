@@ -12,6 +12,9 @@ Regression <- setRefClass("Regression",
    #  sx -> standard deviation of predictor
    best_fit_line_summary = function(x, y, response_index, predictor_index) {
      summary(lm(y~x))$coefficients
+   },
+   residual = function(predicted, observed) {
+     observed - predicted
    }
   )
 )
@@ -23,3 +26,9 @@ test_best_fit_line = function() {
   r$best_fit_line_summary(x,y)
 }
 test_best_fit_line()
+
+test_residual = function() {
+  r <- Regression()
+  all.equal(r$residual(-72359.6 + (216.2 * 3140), 485000), -121508.4)
+}
+test_residual()

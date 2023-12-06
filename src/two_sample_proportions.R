@@ -1,7 +1,6 @@
 library(methods)
 
 # @begin TwoSampleProportions
-<<<<<<< Updated upstream
 two_sample_proportions <- setRefClass("TwoSampleProportions",
                                           fields=list(
                                             # Provide values in Descending order.
@@ -32,7 +31,6 @@ two_sample_proportions <- setRefClass("TwoSampleProportions",
                                               1 - pnorm(z_stat())
                                             }
                                           )
-=======
 TwoSampleProportions <- setRefClass("TwoSampleProportions",
   fields=list(
     # Provide values in Descending order.
@@ -62,5 +60,4 @@ TwoSampleProportions <- setRefClass("TwoSampleProportions",
       1 - pnorm(z_stat())
     }
   )
->>>>>>> Stashed changes
 )
