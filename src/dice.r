@@ -5,12 +5,20 @@ library(methods)
 Die <- setRefClass("Die",
   fields = list(number_of_die="numeric"),
   methods = list(
-    # @begin how_many_combinations
-    # @param Numeric number of dice
-    # @return six for each singular dice.
-    how_many_combinations = function() { 6 ^ number_of_die },
-    # @end how_many_combinations
-    
+    # @begin number_of_options
+    # @return number of sides on die.
+    number_of_options = function() { 6 },
+    # @end number_of_options
+    #
+    # @begin evens
+    evens = function() { c(2,4,6) },
+    # @end evens
+    #
+    # @begin odds
+    odds = function() { c(1,3,5) },
+    # @end odds
+    #
+    # @end number_of_sides
     # @param target_sum: Expected value
     # @param dice_number: number of dice
     # @param number_of_rolls: how many rolls of dice
