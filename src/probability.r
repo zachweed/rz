@@ -1,6 +1,32 @@
 ################################
 # Probability Helper Functions #
 ################################
+
+P <- function(Z="Z", operator="<", operand) {
+  if(operator == "<"){
+    pnorm(operand)
+  }
+  if(operator == ">="){
+    qnorm(operand)
+  }
+}
+
+P(Z="Z", "<", 1)
+P(Z="Z", "<", 0.4)
+P(Z="Z", ">=", 0.9)
+
+# @param Object object: Die, CardDeck, etc.
+# @param String unit: how many turns (e.g. 1,2,3)
+# @param String type: whether even, odds, etc.
+# @return Probability of n turns on an object collection with a types
+# @begin decompose_object_to_probability
+decompose_object_to_probability <- function(object, unit="1 turn", type="evens") {
+  if(unit == "1 turn") {
+    if(type == "evens") { print(length(object$evens()) / object$number_of_options()) }
+    if(type == "odds") { print(length(object$odds()) / object$number_of_options()) }
+  }
+}
+# @end decompose_object_to_probability
   
 # required: independent events. e.g., rolling N on a die, and choosing even card
 # @param Numeric set_of_chances 
@@ -77,7 +103,8 @@ what_is_probability_of_sequence <- function(sequence) {
 # @end what_is_probability_of_sequence
 
 # @return What is stacked probability of an outcome?
-#         i.e., dependent probability.
+#   i.e., dependent probability.
+#   e.g., given probability of A and B, what is probability of A and NOT B?
 # @param List[Vector] probability pairs
 # @begin what_is_stacked_probability_outcome
 # @usage -> what_is_stacked_probability_outcome(list(c(0.9, 0.50), c(0.08, 0.85), c(0.02, 0.6))) => 0.47
@@ -131,11 +158,12 @@ what_is_probability_of_two_events_given_relation <- function(probability_of_both
 # @param Probability of event A
 # @param Probability of event B
 # @begin what_is_probability_of_two_dependent_events
-what_is_probability_of_two_dependent_events <- function(A, B) {
+what_is_probability_of_two_dependent_events_ie_assumed_dependence <- function(A, B) {
   outcome = A * B
   print(outcome)
 }
 what_is_probability_of_two_dependent_events(0.08, 0.37)
+what_is_probability_of_two_dependent_events(0.43, 0.992)
 # @end what_is_probability_of_two_events
 
 # @param Float a_or_b
@@ -192,17 +220,17 @@ what_is_probability_that_either <- function(a=0, b=0, both=0) {
 what_is_probability_that_either(a=0.6, b=0.5, both=0.4)
 # @end what_is_probability_that_either
 
-# Conditional Probability Formula.
-# GIVEN THAT.
-# @param probability_of_both First dependent event
-# @param given_what second dependent event
-# @return probability of something given another thing
+# Conditional Probability Formula with assumption.
+# @param x first dependent event
+# @param y second dependent event
+# @return probability of something given another thing and mutual non-exclusivity.
 # @begin what_is_probability_given_that 
-what_is_probability_given_that <- function(probability_of_both, probability_of_whats_given) {
-  probability_of_both / probability_of_whats_given
+what_is_probability_given_that <- function(x, y) {
+  (x * y) / y
 }
 # @end what_is_probability_given_that
-what_is_probability_given_that(0.02, 0.05)
+# (0.43) (0.992) AND P(0.992|0.43) => 0.43
+# what_is_probability_given_that(0.43, 0.992) => 0.43
 
 # Essentially, if given a Maximum Bound earlier in problem,
 #   then subtract sub-maximum for different maximum.

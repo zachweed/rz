@@ -4,14 +4,19 @@
 
 library(methods)
  
-# @begin EX 
+# @begin E[X] 
 EX = function(a=0, b=0){((a+b)/2)}
-# @end EX 
+# @end E[X]
 
-# @begin VX 
+# @begin V[X] 
 VX = function(a=0, b=0){((b-a)^2)/12}
-# @end VX 
+# @end V[X]
 
+# @begin SD[X] 
+SX = function(a=0, b=0){
+  (b-a)/sqrt(12)
+}
+# @end S[X] 
 
 # @param a: lower
 # @param b: upper

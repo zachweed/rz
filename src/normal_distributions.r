@@ -2,6 +2,20 @@
 # Normal distributions #
 ########################
 
+# @param q Vector[Float] quantiles
+# @param mean -> default value 0
+# @param sd -> default value 1
+normal_distribution <- function (q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE) {
+  pnorm(q, mean = mean, sd = sd, lower.tail = lower.tail, log.p = log.p)
+}
+
+# @param q Vector[Float] quantiles
+# @param mean -> default value 0
+# @param sd -> default value 1
+quantile_normal_distribution <- function (p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE) {
+  qnorm(q, mean = mean, sd = sd, lower.tail = lower.tail, log.p = log.p)
+}
+
 # @return sample size from mean, se, and sd.
 # @begin sample_size
 sample_size <- function(mean=0, standard_deviation=0, standard_error=0) {

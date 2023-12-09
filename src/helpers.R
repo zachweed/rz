@@ -1,4 +1,4 @@
-tail_for_symbol <- function(symbol) {
+ tail_for_symbol <- function(symbol) {
   if(all.equaL(symbol, ">")) {
     print("right")
   }
@@ -11,11 +11,10 @@ tail_for_symbol <- function(symbol) {
 }
 
 sample_sd_of_data_points <- function(data) {sd(data)}
-
 population_sd_of_data_points <- function(data) {
   sqrt(
     (sum((
       data - mean(data)
     )^2) / length(data))
   )
-}
+} e
