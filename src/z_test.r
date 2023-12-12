@@ -19,7 +19,7 @@ z_test_with_data_frame <- function(data_frame) {
   p_W <- data_frame[,2][2]
   
   # z_stat
-  z_stat <- (p_W - p_A) / sqrt(p_c * (1-p_c) * (1/n_A + 1/n_W))
+  z_stat <- (p_W - p_A) / sqrt(abs(p_c * (1-p_c) * (1/n_A + 1/n_W)))
   
   print("to the left:")
   print(pnorm(z_stat))

@@ -1,5 +1,7 @@
 library(methods)
 
+# Useful for testing hypotheses from tables.
+
 use_left_tailed_t_test <- function(data, paired = FALSE) {
   if(paired == TRUE){
     t.test(data[,1], data[,2], alternative = "less", paired = TRUE)  
