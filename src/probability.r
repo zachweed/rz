@@ -2,18 +2,34 @@
 # Probability Helper Functions #
 ################################
 
-P <- function(Z="Z", operator="<", operand) {
-  if(operator == "<"){
-    pnorm(operand)
-  }
-  if(operator == ">="){
-    qnorm(operand)
-  }
-}
+P <- function(str, chi = FALSE, df = 0, f = FALSE, fdf_n = 0, fdf_d = 0) {
+  spl <- matrix(unlist(strsplit(str, " ")))
+  random <- spl[1]
+  operator <- spl[2]
+  operand <- strtoi(spl[3])
 
-P(Z="Z", "<", 1)
-P(Z="Z", "<", 0.4)
-P(Z="Z", ">=", 0.9)
+  if(f == TRUE) {
+    if(operator == ">"){
+      return(1 - pf(operand, fdf_n, fdf_d,))
+    }  
+  } else {
+    if(chi == TRUE) {
+      if(operator == ">"){
+        print(pchisq(operand, df, lower.tail = FALSE))
+      }  
+    } else {
+      if(operator == "<"){
+        print(pnorm(operand))
+      }
+      if(operator == ">="){
+        print(qnorm(operand))
+      }
+    }  
+  }
+  
+  
+  
+}
 
 # @param Object object: Die, CardDeck, etc.
 # @param String unit: how many turns (e.g. 1,2,3)

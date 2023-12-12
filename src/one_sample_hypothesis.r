@@ -25,13 +25,13 @@ hypothesis_test <- setRefClass("Hypothesis",
   # @return Whether or not to reject the null-hypothesis.
   # @end test_p_value
   test_p_value = function() {
-  p_value <- pnorm( (h_a - h_o) / (sd / sqrt(s) ) )
-  reject <- alpha > p_value
-    if(reject == TRUE){
-      print("Reject Null Hypothesis")
-    } else {
-      print("Fail to Reject Null Hypothesis")
-    }
+    p_value <- pnorm( (h_a - h_o) / (sd / sqrt(s) ) )
+    reject <- alpha > p_value
+      if(reject == TRUE){
+        print("Reject Null Hypothesis")
+      } else {
+        print("Fail to Reject Null Hypothesis")
+      }
   },
   calculate_p_value_for_normal_distribution_for_mean = function(tested_mean, expected_mean, standard_deviation=1, alpha=0.05, marker, sample_size) {
     if(all.equal(marker, "<")){
@@ -42,6 +42,8 @@ hypothesis_test <- setRefClass("Hypothesis",
   },
   calculate_p_value_for_proportion_hypothesis_test = function(sample_proportion, null_hypothesis_proportion, n, marker, alpha) {
     ab <- (sample_proportion - null_hypothesis_proportion) / sqrt(null_hypothesis_proportion * ((1 - null_hypothesis_proportion)/n))
+    print("ab is:")
+    print(ab)
     if(marker == ">"){
       print("P-VALUE IS:")
       p_value <- print(1 - pnorm(ab))
@@ -64,7 +66,7 @@ hypothesis_test <- setRefClass("Hypothesis",
     if(marker == "different"){
       print("if null hypothesis is true, this is percentage chance of sample proportion differing")
       print("P-VALUE IS:")
-      p_value <- 2 * (1 - pnorm(abs(ab)))
+      p_value <- 1 - pt(ab, n - 1)
       print(p_value)
       if(p_value > alpha){
         print("reject")
@@ -86,13 +88,8 @@ hypothesis_test <- setRefClass("Hypothesis",
     if(marker == "!="){
     }
   },
-  find_one_sample_test_statistic = function(x_bar, mu, standard_deviation, sample_size) {
+  find_test_statistic = function(x_bar, mu, standard_deviation, sample_size) {
     (x_bar - mu)/(standard_deviation/sqrt(sample_size))
-  },
-  find_two_sample_test_statistic = function(sd_one, sd_two, n_1, n_2) {
-    sqrt(
-      ( (((sd_one)^2)/n_1) + (((sd_two)^2)/n_2) )
-    )
   }
  )
 )
