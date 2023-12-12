@@ -27,24 +27,24 @@ test_correlation()
 all.equal(test_correlation(), 0.3690441)
 
 test_correlation = function() {
-  sample_r = 0.46
-  sample_size = 29
+  sample_r <- 0.46
+  sample_size <- 29
   c <- Correlation()
   c$test(sample_r, sample_size)
 }
 all.equal(test_correlation(), 2.691946)
 
 test_correlation = function() {
-  sample_r = 0.21
-  sample_size = 30
+  sample_r <- 0.21
+  sample_size <- 30
   c <- Correlation()
   c$test(sample_r, sample_size)
 }
 all.equal(test_correlation(), 1.136559)
 
 test_correlation = function() {
-  sample_r = 0.37
-  sample_size = 32
+  sample_r <- 0.37
+  sample_size <- 32
   c <- Correlation()
   c$test(sample_r, sample_size)
 }
