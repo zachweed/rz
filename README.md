@@ -2,7 +2,10 @@
 
 ### What rz Is
 
-`rz` is a series of classes and utility methods for applying statistics concepts through computation
+`rz` is a series of classes and utility methods for applying statistics concepts through computation. In other words, while existing code is there for handling statistics-related work within R lang, this work composes:
+
+- Composes said helper methods within modules.
+- Makes these methods available while incorporating Object Oriented principles.
 
 ### How rz Works
 
