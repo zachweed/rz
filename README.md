@@ -105,14 +105,6 @@ Groups of functions have been grouped into centralized concepts with differentia
 * `#percentile_from_z_score`
 * `#interquartile_range`
 
-### PopulationMean
-
-#### TBD
-
-### ProbabilityMassFunction
-
-#### TBD
-
 ### Probability
 
 #### TBD
@@ -130,10 +122,6 @@ Groups of functions have been grouped into centralized concepts with differentia
 #### TBD
 
 ### TScores
-
-#### TBD
-
-### TwoSampleHypothesis
 
 #### TBD
 
