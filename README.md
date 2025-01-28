@@ -6,6 +6,7 @@
 
 - Composes said helper methods within modules.
 - Makes these methods available while incorporating Object Oriented principles.
+- And, in some cases, performs tests of said code.
 
 ### How rz Works
 
