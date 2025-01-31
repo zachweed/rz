@@ -12,6 +12,37 @@
 
 Groups of functions have been grouped into centralized concepts with differentiation on `two_sample_hypothesis_tests` and `one_sample_hypothesis_tests`, and both `normal_distributions` and `uniform_distributions`. Find what you are looking for, plug in appropriate instance variables, and call an appropriate function.
 
+### Fuzzy Search
+
+If for whatever reason a function is not listed and one feels like it should be, they can search for it like so:
+
+```
+FuzzySearch("p-value", "/Users/user/Development/rz/src").search_for_string()
+
+File /Users/user/Development/rz/src/null_hypothesis.r at line 0 could contain this function
+File /Users/user/Development/rz/src/null_hypothesis.r at line 1 could contain this function
+File /Users/user/Development/rz/src/two_sample_hypothesis.r at line 0 could contain this function
+File /Users/user/Development/rz/src/two_sample_proportions.R at line 0 could contain this function
+File /Users/user/Development/rz/src/anova.r at line 0 could contain this function
+File /Users/user/Development/rz/src/anova.r at line 1 could contain this function
+File /Users/user/Development/rz/src/p_value.r at line 0 could contain this function
+File /Users/user/Development/rz/src/goodness_of_fit.R at line 0 could contain this function
+File /Users/user/Development/rz/src/goodness_of_fit.R at line 1 could contain this function
+File /Users/user/Development/rz/src/goodness_of_fit.R at line 2 could contain this function
+File /Users/user/Development/rz/src/chi_squared.R at line 0 could contain this function
+File /Users/user/Development/rz/src/null_hypothesis.r at line 0 could contain this function
+File /Users/user/Development/rz/src/null_hypothesis.r at line 1 could contain this function
+File /Users/user/Development/rz/src/two_sample_hypothesis.r at line 0 could contain this function
+File /Users/user/Development/rz/src/two_sample_proportions.R at line 0 could contain this function
+File /Users/user/Development/rz/src/anova.r at line 0 could contain this function
+File /Users/user/Development/rz/src/anova.r at line 1 could contain this function
+File /Users/user/Development/rz/src/p_value.r at line 0 could contain this function
+File /Users/user/Development/rz/src/goodness_of_fit.R at line 0 could contain this function
+File /Users/user/Development/rz/src/goodness_of_fit.R at line 1 could contain this function
+File /Users/user/Development/rz/src/goodness_of_fit.R at line 2 could contain this function
+File /Users/user/Development/rz/src/chi_squared.R at line 0 could contain this function
+```
+
 ### Binomial Distributions
 
   * `#derive_mean_and_or_expected_value_from_X`
