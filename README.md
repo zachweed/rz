@@ -162,8 +162,6 @@ File /Users/user/Development/rz/src/chi_squared.R at line 0 could contain this f
  * `what_is_probability_given_that`
  * `what_is_probability_between_two_integers`
 
-#### TBD
-
 ### Proportions
 
 #### TBD
