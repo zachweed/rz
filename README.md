@@ -164,7 +164,8 @@ File /Users/user/Development/rz/src/chi_squared.R at line 0 could contain this f
 
 ### Proportions
 
-#### TBD
+ * `best_fit_line_summary`
+ * `residual`
 
 ### SamplingDistributions
 
