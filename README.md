@@ -141,6 +141,26 @@ File /Users/user/Development/rz/src/chi_squared.R at line 0 could contain this f
 * `#interquartile_range`
 
 ### Probability
+ * `decompose_object_to_probability`
+ * `find_successive_probability`
+ * `find_probability_given_combination`
+ * `what_is_probability_of_success`
+ * `probability_of_random_variable_between`
+ * `solve_decision_tree`
+ * `what_is_probability_of_sequence`
+ * `what_is_stacked_probability_outcome`
+ * `what_is_stacked_probability_outcome_with_not`
+ * `what_is_probability_of_two_mutually_exclusive_events`
+ * `what_is_probability_of_two_events_given_relation`
+ * `what_is_probability_of_two_dependent_events_ie_assumed_dependence`
+ * `what_is_stack_probability_outcome_with_not`
+ * `what_is_probability_of_n_events`
+ * `what_is_probability_of_two_independent_events`
+ * `what_is_probability_of_this_and_not_that`
+ * `what_is_probability_that_either`
+ * `what_is_probability_that_neither`
+ * `what_is_probability_given_that`
+ * `what_is_probability_between_two_integers`
 
 #### TBD
 
